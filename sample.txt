@@ -1,0 +1,4 @@
+export FLASK_CONFIG=development
+export FLASK_APP=run.py
+flask run
+print(current_app.config.get('ENV'))
