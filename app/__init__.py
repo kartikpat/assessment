@@ -6,8 +6,7 @@ import logging.handlers, logging.config
 
 # local imports
 from config import app_config
-from .error.error import *
-from .task.celery import make_celery
+from .error import *
 
 # db variable initialization
 db = MongoEngine()
@@ -22,20 +21,39 @@ def create_app(config_name):
     app.config.from_pyfile(configInstance.FLASK_CONFIG)
     db.init_app(app)
  
-    celery = make_celery(app)
     if(configInstance.FLASK_LOGGING):
         with open("loggingConfiguration.json", 'r') as logging_configuration_file:
             config_dict = json.load(logging_configuration_file)
 
         logging.config.dictConfig(config_dict)
        
-        
-    # blueprints registration
-    from .controller.assessment.operation import operation as assessment_operation_blueprint
-    app.register_blueprint(assessment_operation_blueprint, url_prefix=configInstance.FLASK_API_VERSION)
+    #questionaire blueprints registration
+    from .questionaire.routes.jobAssociation import jobAssociation as jobAssociation_route
+    app.register_blueprint(jobAssociation_route, url_prefix=configInstance.FLASK_API_VERSION)
 
-    # from .task import task as task_blueprint
-    # app.register_blueprint(task_blueprint, url_prefix='/tasks')
+    from .questionaire.routes.questionaire import questionaire as questionaire_route
+    app.register_blueprint(questionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
+
+    from .questionaire.routes.tagAssociation import tagAssociationWithQuestionaire as tagAssociationWithQuestionaire_route
+    app.register_blueprint(tagAssociationWithQuestionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
+
+    #questions blueprints registration
+    from .questions.routes.questions import questions as questions_route
+    app.register_blueprint(questions_route, url_prefix=configInstance.FLASK_API_VERSION)
+
+    from .questions.routes.tagAssociation import tagAssociationWithQuestion as tagAssociationWithQuestion_route
+    app.register_blueprint(tagAssociationWithQuestion_route, url_prefix=configInstance.FLASK_API_VERSION)
+
+    #summary blueprints registration
+    from .summary.routes.summary import summary as summary_route
+    app.register_blueprint(summary_route, url_prefix=configInstance.FLASK_API_VERSION)
+
+    #questionResponse blueprints registration
+    from .questionResponse.routes.questionResponse import questionResponse as questionResponse_route
+    app.register_blueprint(questionResponse_route, url_prefix=configInstance.FLASK_API_VERSION)
+
+    from .task.worker import celery_worker as celery_worker_blueprint
+    app.register_blueprint(celery_worker_blueprint, url_prefix='/task')
 
     # error handlers registration 
     app.register_error_handler(404, not_found)
@@ -43,4 +61,5 @@ def create_app(config_name):
     app.register_error_handler(400, bad_request)
     app.register_error_handler(503, service_error)
     app.register_error_handler(422, unprocessable_entity)
+
     return app
