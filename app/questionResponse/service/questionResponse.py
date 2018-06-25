@@ -1,8 +1,8 @@
 from app.questionResponse.model.questionResponse import QuestionResponse
 from bson import ObjectId
 import bson
-from app.exception import InvalidObjectId
-from app.utils import is_valid_object_id
+from ...exception import InvalidObjectId
+from ...utils import is_valid_object_id, decode_objectId
 
 def insert_questionResponse(data):
 
@@ -15,6 +15,8 @@ def insert_questionResponse(data):
     return questionResponse_id
 
 def update_questionResponse(data, questionResponse_id):
+    questionResponse_id = decode_objectId(questionResponse_id)
+
     if not is_valid_object_id(questionResponse_id):
         raise InvalidObjectId('invalid questionResponse id') 
 
@@ -40,6 +42,8 @@ def get_questionResponse_list():
     return questionResponse_list
 
 def get_questionResponse(questionResponse_id):
+    questionResponse_id = decode_objectId(questionResponse_id)
+    
     if not is_valid_object_id(questionResponse_id):
         raise InvalidObjectId('invalid questionResponse id')    
 

@@ -7,6 +7,8 @@ import bson
 import dateutil.parser as parser
 from wtforms import Form, Field
 from flask import current_app
+from werkzeug.routing import BaseConverter
+from itsdangerous import base64_encode, base64_decode
 
 def timestamp():
     """Return the current timestamp as an integer."""
@@ -86,6 +88,20 @@ def validateListLength(list_data, list_name):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in current_app.config.get('ALLOWED_EXTENSIONS')
+
+def formValidate(form_name, data):    
+    mdict_data = get_multiDict_data(data)
+    form_name = form_name(mdict_data)
+    if not form_name.validate():
+        for fieldName, errorMessage in form_name.errors.items():
+            raise ValidationError(''+fieldName+' : '+errorMessage[0]+'')
+
+def decode_objectId(value):
+    return ObjectId(base64_decode(value))
+
+def encode_objectId(value):
+    return str(base64_encode(value.binary), 'utf-8')
+
         
 
 # def requiredIfFieldExist(field_name, field_value):

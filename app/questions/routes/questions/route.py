@@ -1,11 +1,11 @@
 from flask import  Flask,request,abort,jsonify, current_app
 from . import questions
-from app.questions.service.questions import insert_question, update_question, get_questions_list, get_question
-from app.questions.model.questions import Question
-from app.questions.routes.questions.validate import validate
-from app.exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound
+from ...service.questions import insert_question, update_question, get_questions_list, get_question
+from ...model.questions import Question
+from .validate import validate
+from ....exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound
 import logging
-from app.utils import get_data_in_dict
+from ....utils import get_data_in_dict
 logger = logging.getLogger(__name__)
 
 
@@ -20,7 +20,7 @@ def fetch_all_questions():
             })
 
     except Exception as e:
-            logger.debug(e)
+            logger.exception(e)
             message = ''
             abort(503,{'message': message})
 
@@ -40,7 +40,7 @@ def create_question():
         })
 
     except (KeyError, BadContentType) as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         if hasattr(e, 'message'):
             e.to_dict()
@@ -48,12 +48,12 @@ def create_question():
         abort(400,{'message': message}) 
 
     except ValidationError as e: 
-        logger.debug(e)
+        logger.exception(e)
         message = e.message
         abort(422,{'message': message}) 
 
     except Exception as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(503,{'message': message}) 
 
@@ -74,17 +74,17 @@ def updateQuestion(question_id):
         })
 
     except ValidationError as e: 
-        logger.debug(e)
+        logger.exception(e)
         message = e.message
         abort(422,{'message': message})     
     
     except KeyError as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(400,{'message': message}) 
 
     except (Question.DoesNotExist, InvalidObjectId, EmbeddedDocumentNotFound) as e:
-        logger.debug(e)
+        logger.exception(e)
         message = 'question id doesn\'t exist'
         if hasattr(e, 'message'):
             e.to_dict()
@@ -92,7 +92,7 @@ def updateQuestion(question_id):
         abort(404,{'message': message})    
 
     except Exception as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(503,{'message': message})            
 
@@ -107,7 +107,7 @@ def fetch_question(question_id):
             })
 
     except (Question.DoesNotExist, InvalidObjectId) as e:
-        logger.debug(e)
+        logger.exception(e)
         message = 'question id doesn\'t exist'
         if hasattr(e, 'message'):
             e.to_dict()
@@ -115,7 +115,7 @@ def fetch_question(question_id):
         abort(404,{'message': message})       
 
     except Exception as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(503,{'message': message})
 

@@ -1,8 +1,8 @@
-from app.questionaire.model.questionaire import Questionaire
+from ..model.questionaire import Questionaire
 from bson import ObjectId
 import bson
-from app.exception import InvalidObjectId
-from app.utils import is_valid_object_id
+from ...exception import InvalidObjectId
+from ...utils import is_valid_object_id
 
 def associate_job_list_with_questionaire(data, questionaire_id):
     if not is_valid_object_id(questionaire_id):

@@ -2,9 +2,9 @@ from mongoengine.document import Document
 from mongoengine import *
 from extras_mongoengine.fields import IntEnumField
 import datetime
-from app.questions.enumerations import *
-from app.questions.constants import *
-from app.utils import getDateInIsoFormat
+from ..enumerations import *
+from ..constants import *
+from ...utils import getDateInIsoFormat
 
 class Question(Document):
     _question = StringField(db_field='question',required=True)

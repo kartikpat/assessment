@@ -1,11 +1,11 @@
-from flask import  Flask,request,abort,jsonify, current_app
+from flask import  Flask,abort,jsonify
 from . import questionaire
-from app.questionaire.service.questionaire import insert_questionaire, update_questionaire, get_questionaire_list, get_questionaire
-from app.questionaire.model.questionaire import Questionaire
-from app.questionaire.routes.questionaire.validate import validate
-from app.exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound
+from ...service.questionaire import insert_questionaire, update_questionaire, get_questionaire_list, get_questionaire
+from ...model.questionaire import Questionaire
+from .validate import validate
+from ....exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound
 import logging
-from app.utils import get_data_in_dict
+from ....utils import get_data_in_dict, encode_objectId
 logger = logging.getLogger(__name__)
 
 @questionaire.route('/questionaire', methods=['GET'])
@@ -19,7 +19,7 @@ def fetch_all_questionaire():
             })
 
     except Exception as e:
-            logger.debug(e)
+            logger.exception(e)
             message = ''
             abort(503,{'message': message})
 
@@ -32,6 +32,8 @@ def create_questionaire():
          
         questionaire_id = insert_questionaire(data)
 
+        questionaire_id = encode_objectId(questionaire_id)
+
         return jsonify({
             'status': 'success',
             'message': 'questionaire created successfully',
@@ -39,7 +41,7 @@ def create_questionaire():
         })
 
     except (KeyError, BadContentType) as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         if hasattr(e, 'message'):
             e.to_dict()
@@ -47,12 +49,12 @@ def create_questionaire():
         abort(400,{'message': message}) 
 
     except ValidationError as e: 
-        logger.debug(e)
+        logger.exception(e)
         message = e.message
         abort(422,{'message': message}) 
 
     except Exception as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(503,{'message': message}) 
 
@@ -60,7 +62,7 @@ def create_questionaire():
 @questionaire.route('/questionaire/<questionaire_id>', methods=['POST'])
 def updateQuestionaire(questionaire_id):
     try:
-
+        
         data = get_data_in_dict()
         
         validate(data, "update")
@@ -73,17 +75,17 @@ def updateQuestionaire(questionaire_id):
         })
 
     except ValidationError as e: 
-        logger.debug(e)
+        logger.exception(e)
         message = e.message
         abort(422,{'message': message})     
     
     except KeyError as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(400,{'message': message}) 
 
     except (Questionaire.DoesNotExist, InvalidObjectId, EmbeddedDocumentNotFound) as e:
-        logger.debug(e)
+        logger.exception(e)
         message = 'questionaire id doesn\'t exist'
         if hasattr(e, 'message'):
             e.to_dict()
@@ -91,7 +93,7 @@ def updateQuestionaire(questionaire_id):
         abort(404,{'message': message})    
 
     except Exception as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(503,{'message': message})            
 
@@ -106,7 +108,7 @@ def fetch_questionaire(questionaire_id):
             })
 
     except (Questionaire.DoesNotExist, InvalidObjectId) as e:
-        logger.debug(e)
+        logger.exception(e)
         message = 'questionaire id doesn\'t exist'
         if hasattr(e, 'message'):
             e.to_dict()
@@ -114,7 +116,7 @@ def fetch_questionaire(questionaire_id):
         abort(404,{'message': message})       
 
     except Exception as e:
-        logger.debug(e)
+        logger.exception(e)
         message = ''
         abort(503,{'message': message})
 

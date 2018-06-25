@@ -1,8 +1,8 @@
 from app.questions.model.questions import Question
 from bson import ObjectId
 import bson
-from app.exception import InvalidObjectId
-from app.utils import is_valid_object_id
+from ...exception import InvalidObjectId
+from ...utils import is_valid_object_id
 
 def update_tags_with_question(data, question_id):
     if not is_valid_object_id(question_id):

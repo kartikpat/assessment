@@ -2,9 +2,9 @@ from mongoengine.document import Document
 from mongoengine import *
 from extras_mongoengine.fields import IntEnumField
 import datetime
-from app.summary.enumerations import *
-from app.summary.constants import *
-from app.utils import getDateInIsoFormat
+from ..enumerations import *
+from ..constants import *
+from ...utils import getDateInIsoFormat
 
 class Summary(Document):
     _questionaire = LazyReferenceField('Questionaire',db_ref=False,db_field='questionaireId',required=True, reverse_delete_rule=CASCADE)

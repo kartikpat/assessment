@@ -1,8 +1,8 @@
-from wtforms import Form, BooleanField, StringField, validators, IntegerField, SelectField, Field
-from app.exception import ValidationError
-from app.utils import get_multiDict_data, isStringInstance, ifValueInEnum,ListField, _validateListLength
-from app.questionaire.constants import *
-from app.questionaire.enumerations import * 
+from wtforms import Form
+from ....exception import ValidationError
+from ....utils import ListField, _validateListLength, formValidate
+from ...constants import *
+from ...enumerations import * 
 
 class jobAssociateForm(Form):
     jobs = ListField('jobs associated', [_validateListLength])    
@@ -10,10 +10,5 @@ class jobAssociateForm(Form):
 def validate(data):    
     formValidate(jobAssociateForm, data)
         
-def formValidate(form_name, data):    
-    mdict_data = get_multiDict_data(data)
-    form_name = form_name(mdict_data)
-    if not form_name.validate():
-        for fieldName, errorMessage in form_name.errors.items():
-            raise ValidationError(''+fieldName+' : '+errorMessage[0]+'')        
+        
  

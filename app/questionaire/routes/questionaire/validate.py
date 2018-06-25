@@ -1,8 +1,8 @@
 from wtforms import Form, BooleanField, StringField, validators, IntegerField, SelectField, Field
-from app.exception import ValidationError
-from app.utils import get_multiDict_data, isStringInstance, ifValueInTuple, isIntInstance, ifValueInEnum, isBooleanInstance,ListField, validateListLength, _validateListLength
-from app.questionaire.constants import *
-from app.questionaire.enumerations import * 
+from ....exception import ValidationError
+from ....utils import formValidate, isStringInstance, ifValueInTuple, isIntInstance, ifValueInEnum, isBooleanInstance,ListField, validateListLength, _validateListLength
+from ...constants import *
+from ...enumerations import * 
 
 class QuestionsListField(ListField):
     def pre_validate(self, form):
@@ -65,11 +65,4 @@ def validate(data, action):
     
 def sectionValidate(data):
     for index, section in enumerate(data):
-        formValidate(QuestionareSectionForm, section)        
-        
-def formValidate(form_name, data):    
-    mdict_data = get_multiDict_data(data)
-    form_name = form_name(mdict_data)
-    if not form_name.validate():
-        for fieldName, errorMessage in form_name.errors.items():
-            raise ValidationError(''+fieldName+' : '+errorMessage[0]+'')        
+        formValidate(QuestionareSectionForm, section)                

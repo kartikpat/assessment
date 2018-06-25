@@ -1,8 +1,8 @@
 from app.summary.model.summary import Summary
 from bson import ObjectId
 import bson
-from app.exception import InvalidObjectId
-from app.utils import is_valid_object_id
+from ...exception import InvalidObjectId
+from ...utils import is_valid_object_id
 
 def insert_summary(data):
 

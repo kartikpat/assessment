@@ -2,40 +2,25 @@ from mongoengine.document import Document
 from mongoengine import *
 from extras_mongoengine.fields import IntEnumField
 import datetime
-from app.questionaire.enumerations import AuthorType, QuestionaireStatus, QuestionaireInvocation
-from app.questionaire.constants import questionaireViewType, questionaireSectionType
-from app.utils import getBooleanValue, getDateInIsoFormat
-from app.exception import ValidationError
-
-class QuestionaireSecurity(EmbeddedDocument):
-    _blockWindow = BooleanField(db_field='blockWindow', default=False)
-
-    def set_data(self, data):
-        if "blockWindow" in data:
-            self._blockWindow = getBooleanValue(data["blockWindow"])
-
-    def update_data(self, data):
-        if "blockWindow" in data:
-            self._blockWindow = getBooleanValue(data["blockWindow"])       
-
-    def get_data(self, data):
-        data["blockWindow"] = self._blockWindow 
-        return data       
+from ..enumerations import AuthorType, QuestionaireStatus, QuestionaireInvocation
+from ..constants import questionaireViewType, questionaireSectionType
+from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId
 
 class QuestionaireProperty(EmbeddedDocument):
     _viewType = StringField(db_field='viewType', default='slide', choices=questionaireViewType)
     _showAnswers = BooleanField(db_field='showAnswers', default=False)
     _durationInMin = IntField(db_field='durationInMin', min_value = 0 , required=True, default=30)
-    _security = EmbeddedDocumentField(QuestionaireSecurity, db_field='security') 
+    _blockWindow = BooleanField(db_field='blockWindow', default=False)
 
-    def set_data(self, data, q_security):
+    def set_data(self, data):
         if "viewType" in data:
             self._viewType = data["viewType"]
         if "showAnswers" in data:
             self._showAnswers = data["showAnswers"]
         if "durationInMin" in data:
             self._durationInMin = data["durationInMin"]
-        self._security = q_security
+        if "blockWindow" in data:
+            self._blockWindow = getBooleanValue(data["blockWindow"])    
 
     def update_data(self, data):  
         if "viewType" in data:
@@ -44,11 +29,14 @@ class QuestionaireProperty(EmbeddedDocument):
             self._showAnswers = data["showAnswers"]
         if "durationInMin" in data:
             self._durationInMin = data["durationInMin"]  
+        if "blockWindow" in data:
+            self._blockWindow = getBooleanValue(data["blockWindow"])
 
     def get_data(self, data):
         data["viewType"] = self._viewType
         data["showAnswers"] = self._showAnswers
         data["durationInMin"] = self._durationInMin
+        data["blockWindow"] = self._blockWindow 
         return data    
 
 class QuestionaireSection(EmbeddedDocument):
@@ -140,7 +128,7 @@ class Questionaire(Document):
             self._jobs = data["jobs"]                   
         
     def get_data(self, data):
-        data["id"] = str(self.id)
+        data["id"] = encode_objectId(self.id)
         data["name"] = self._name
         if self._description:
             data["description"] = self._description

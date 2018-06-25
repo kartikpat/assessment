@@ -2,9 +2,9 @@ from mongoengine.document import Document
 from mongoengine import *
 from extras_mongoengine.fields import IntEnumField
 import datetime
-from app.questionResponse.enumerations import *
-from app.questionResponse.constants import *
-from app.utils import getDateInIsoFormat
+from ..enumerations import *
+from ..constants import *
+from ...utils import getDateInIsoFormat, encode_objectId
 
 class QuestionResponse(Document):
     _question = LazyReferenceField('Question', db_ref=False, db_field='questionId', required=True)
@@ -22,7 +22,7 @@ class QuestionResponse(Document):
             self._timeTaken = data["timeTaken"]                                   
         
     def get_data(self, data):
-        data["id"] = str(self.id)
+        data["id"] = encode_objectId(self.id)
         data["question"] = str(self._question.pk)
         data["questionaireId"] = str(self._questionaire.pk)
         data["seekerId"] = self._seekerId

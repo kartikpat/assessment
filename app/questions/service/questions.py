@@ -1,8 +1,8 @@
 from app.questions.model.questions import Question
 from bson import ObjectId
 import bson
-from app.exception import InvalidObjectId
-from app.utils import is_valid_object_id
+from ...exception import InvalidObjectId
+from ...utils import is_valid_object_id
 
 def insert_question(data):
 

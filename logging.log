@@ -4819,3 +4819,271 @@ _invocation - 0 is not a valid QuestionaireInvocation
 2018-06-19 19:25:38,645 - werkzeug - INFO - 127.0.0.1 - - [19/Jun/2018 19:25:38] "GET /v1/question/5b28a6b515f9e50632413fa2/tag HTTP/1.1" 200 -
 2018-06-20 13:51:24,674 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2018 13:51:24] "GET /v1/question/5b28a6b515f9e50632413fa2/tag HTTP/1.1" 500 -
 2018-06-20 13:53:12,791 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2018 13:53:12] "GET /v1/question/5b28a6b515f9e50632413fa2/tag HTTP/1.1" 200 -
+2018-06-20 14:48:46,573 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/__init__.py', reloading
+2018-06-20 14:48:47,115 - werkzeug - INFO -  * Restarting with stat
+2018-06-23 21:48:44,967 - app.questionaire.routes.questionaire.route - DEBUG - set_data() missing 1 required positional argument: 'q_security'
+2018-06-23 21:48:44,980 - app.error - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-23 21:48:44,980 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2018 21:48:44] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-23 21:49:12,638 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/model/questionaire.py', reloading
+2018-06-23 21:49:12,939 - werkzeug - INFO -  * Restarting with stat
+2018-06-23 21:49:27,700 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2018 21:49:27] "POST /v1/questionaire HTTP/1.1" 200 -
+2018-06-23 21:51:12,792 - app.questionaire.routes.questionaire.route - DEBUG - Tried to save duplicate unique keys (insertDocument :: caused by :: 11000 E11000 duplicate key error index: development.questionaire.$name_1  dup key: { : "test today1" })
+2018-06-23 21:51:12,793 - app.error - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-23 21:51:12,795 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2018 21:51:12] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-23 21:51:27,634 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2018 21:51:27] "POST /v1/questionaire HTTP/1.1" 200 -
+2018-06-23 21:59:05,374 - werkzeug - INFO - 127.0.0.1 - - [23/Jun/2018 21:59:05] "POST /v1/questionaire HTTP/1.1" 200 -
+2018-06-23 22:53:55,939 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-23 22:53:56,482 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 13:42:18,338 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-24 13:42:18,696 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 13:56:59,715 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-24 13:57:00,287 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 13:57:19,355 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 13:57:19] "GET /v1/questionaire HTTP/1.1" 200 -
+2018-06-24 13:57:30,408 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 13:57:30] "GET /v1/questionaire HTTP/1.1" 200 -
+2018-06-24 13:58:04,712 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-24 13:58:05,117 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 13:58:10,700 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 13:58:10] "GET /v1/questionaire HTTP/1.1" 200 -
+2018-06-24 13:59:01,717 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-24 13:59:02,078 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 13:59:21,786 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-24 13:59:21,994 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 13:59:29,188 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 13:59:29] "GET /v1/questionaire HTTP/1.1" 200 -
+2018-06-24 13:59:38,624 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-24 13:59:38,886 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 13:59:42,652 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 13:59:42] "GET /v1/questionaire HTTP/1.1" 200 -
+2018-06-24 14:02:57,997 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-24 14:02:58,520 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:06:54,075 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-24 14:06:54,229 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:07:58,973 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/model/questionaire.py', reloading
+2018-06-24 14:07:59,217 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:08:36,306 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-24 14:08:36,654 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:09:12,727 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/model/questionaire.py', reloading
+2018-06-24 14:09:13,093 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:09:30,742 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questions/model/questions.py', reloading
+2018-06-24 14:09:31,006 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:11:31,820 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/validate.py', reloading
+2018-06-24 14:11:32,047 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:12:06,988 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/jobAssociation/validate.py', reloading
+2018-06-24 14:12:07,476 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:15:59,368 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-24 14:15:59,680 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 14:30:24,733 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/jobAssociation.py', reloading
+2018-06-24 14:30:25,233 - werkzeug - INFO -  * Restarting with stat
+2018-06-24 15:24:55,677 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 15:24:55] "GET /v1/questionaire HTTP/1.1" 500 -
+2018-06-24 15:25:39,540 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 15:25:39] "GET /v1/questionaire HTTP/1.1" 500 -
+2018-06-24 15:26:11,870 - werkzeug - INFO - 127.0.0.1 - - [24/Jun/2018 15:26:11] "GET /v1/questionaire HTTP/1.1" 200 -
+2018-06-25 12:08:56,892 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:08:57,365 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:10:56,560 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:10:56,901 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:11:45,378 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:11:45,858 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:11:54,291 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:11:54,743 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:12:49,298 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:12:49,698 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:13:06,351 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:13:06,608 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:13:56,017 - app.questionaire.routes.questionaire.route - DEBUG - 'str' object has no attribute 'binary'
+2018-06-25 12:13:56,017 - app.error - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:13:56,017 - werkzeug - INFO - 127.0.0.1 - - [25/Jun/2018 12:13:56] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:14:14,447 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:14:14,580 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:14:36,304 - werkzeug - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:14:36,492 - werkzeug - INFO -  * Restarting with stat
+2018-06-25 12:19:32,642 - app.questionaire.routes.questionaire.route - DEBUG - Tried to save duplicate unique keys (insertDocument :: caused by :: 11000 E11000 duplicate key error index: development.questionaire.$name_1  dup key: { : "test" })
+2018-06-25 12:19:32,643 - app.error - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:19:32,643 - werkzeug - INFO - 127.0.0.1 - - [25/Jun/2018 12:19:32] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:19:51,433 - app.questionaire.routes.questionaire.route - DEBUG - 'str' object has no attribute 'binary'
+2018-06-25 12:19:51,434 - app.error - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:19:51,434 - werkzeug - INFO - 127.0.0.1 - - [25/Jun/2018 12:19:51] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:20:28,746 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:57 - DEBUG - Tried to save duplicate unique keys (insertDocument :: caused by :: 11000 E11000 duplicate key error index: development.questionaire.$name_1  dup key: { : "test 111" })
+2018-06-25 12:20:28,746 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:20:28,747 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:20:28] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:20:47,003 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:57 - DEBUG - 'str' object has no attribute 'binary'
+2018-06-25 12:20:47,003 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:20:47,004 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:20:47] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:26:53,635 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:26:54,157 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:26:57,464 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:26:57,541 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:27:02,196 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:57 - DEBUG - 'str' object has no attribute 'binary'
+Traceback (most recent call last):
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py", line 35, in create_questionaire
+    questionaire_id = encode_objectId(questionaire_id)
+  File "/home/kartik/Documents/assessment/app/utils.py", line 103, in encode_objectId
+    return base64_encode(value.binary)
+AttributeError: 'str' object has no attribute 'binary'
+2018-06-25 12:27:02,197 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:27:02,197 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:27:02] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:28:31,924 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:28:32,110 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:28:37,920 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:57 - ERROR - 'str' object has no attribute 'binary'
+Traceback (most recent call last):
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py", line 35, in create_questionaire
+    questionaire_id = encode_objectId(questionaire_id)
+  File "/home/kartik/Documents/assessment/app/utils.py", line 103, in encode_objectId
+    return base64_encode(value.binary)
+AttributeError: 'str' object has no attribute 'binary'
+2018-06-25 12:28:37,921 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:28:37,921 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:28:37] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:29:12,283 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:29:12,535 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:34:32,068 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/summary/routes/summary/route.py', reloading
+2018-06-25 12:34:32,408 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:34:34,737 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questions/routes/questions/route.py', reloading
+2018-06-25 12:34:34,806 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:34:37,118 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/jobAssociation/route.py', reloading
+2018-06-25 12:34:37,238 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:34:41,592 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/summary/routes/summary/route.py', reloading
+2018-06-25 12:34:42,200 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:35:16,436 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:35:16,649 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:35:23,150 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:57 - ERROR - Object of type 'bytes' is not JSON serializable
+Traceback (most recent call last):
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py", line 40, in create_questionaire
+    'data': questionaire_id
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 321, in jsonify
+    dumps(data, indent=indent, separators=separators) + '\n',
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 179, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "/usr/lib/python3.6/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/usr/lib/python3.6/json/encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "/usr/lib/python3.6/json/encoder.py", line 430, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/usr/lib/python3.6/json/encoder.py", line 404, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.6/json/encoder.py", line 437, in _iterencode
+    o = _default(o)
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask_mongoengine/json.py", line 18, in default
+    return superclass.default(self, obj)
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 81, in default
+    return _json.JSONEncoder.default(self, o)
+  File "/usr/lib/python3.6/json/encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'bytes' is not JSON serializable
+2018-06-25 12:35:23,182 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:35:23,183 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:35:23] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:36:30,675 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:36:31,162 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:36:36,923 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:36:36] "POST /v1/questionaire HTTP/1.1" 200 -
+2018-06-25 12:40:31,134 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:40:31,391 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:40:40,858 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:40:41,295 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:40:57,924 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:40:58,210 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:41:06,607 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:41:07,125 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:41:14,309 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:57 - ERROR - name 'questionaire_id' is not defined
+Traceback (most recent call last):
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py", line 33, in create_questionaire
+    questionaire_id = insert_questionaire(data)
+  File "/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py", line 26, in insert_questionaire
+NameError: name 'questionaire_id' is not defined
+2018-06-25 12:41:14,310 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:41:14,310 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:41:14] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:41:57,544 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:41:58,109 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:42:05,543 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:42:05,990 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:42:12,350 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:57 - ERROR - Object of type 'bytes' is not JSON serializable
+Traceback (most recent call last):
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py", line 40, in create_questionaire
+    'data': questionaire_id
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 321, in jsonify
+    dumps(data, indent=indent, separators=separators) + '\n',
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 179, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "/usr/lib/python3.6/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/usr/lib/python3.6/json/encoder.py", line 201, in encode
+    chunks = list(chunks)
+  File "/usr/lib/python3.6/json/encoder.py", line 430, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/usr/lib/python3.6/json/encoder.py", line 404, in _iterencode_dict
+    yield from chunks
+  File "/usr/lib/python3.6/json/encoder.py", line 437, in _iterencode
+    o = _default(o)
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask_mongoengine/json.py", line 18, in default
+    return superclass.default(self, obj)
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 81, in default
+    return _json.JSONEncoder.default(self, o)
+  File "/usr/lib/python3.6/json/encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'bytes' is not JSON serializable
+2018-06-25 12:42:12,351 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:42:12,351 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:42:12] "POST /v1/questionaire HTTP/1.1" 503 -
+2018-06-25 12:42:35,931 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:42:36,420 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:42:42,386 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:42:42] "POST /v1/questionaire HTTP/1.1" 200 -
+2018-06-25 12:44:41,616 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/utils.py', reloading
+2018-06-25 12:44:41,981 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:44:45,474 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:44:45] "POST /v1/questionaire HTTP/1.1" 200 -
+2018-06-25 12:46:55,283 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/model/questionaire.py', reloading
+2018-06-25 12:46:55,633 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:47:03,048 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/model/questionaire.py', reloading
+2018-06-25 12:47:03,548 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:48:10,858 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:48:10] "GET /v1/questionaire HTTP/1.1" 200 -
+2018-06-25 12:49:33,534 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:49:33,684 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:49:46,320 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:49:46,650 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:50:36,079 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:78 - ERROR - invocation : not a valid choice
+Traceback (most recent call last):
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py", line 68, in updateQuestionaire
+    validate(data, "update")
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/validate.py", line 58, in validate
+    formValidate(QuestionaireUpdateForm, data)
+  File "/home/kartik/Documents/assessment/app/utils.py", line 95, in formValidate
+    if not form_name.validate():
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/wtforms/form.py", line 310, in validate
+    return super(Form, self).validate(extra)
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/wtforms/form.py", line 152, in validate
+    if not field.validate(self, extra):
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/wtforms/fields/core.py", line 204, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+  File "/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/wtforms/fields/core.py", line 224, in _run_validation_chain
+    validator(form, self)
+  File "/home/kartik/Documents/assessment/app/utils.py", line 63, in _ifValueInEnum
+    raise ValidationError(field.name + " : " + message)
+app.exception.ValidationError: invocation : not a valid choice
+2018-06-25 12:50:36,080 - app.error - /home/kartik/Documents/assessment/app/error.py:39 - DEBUG - 422 Unprocessable Entity: {'message': 'invocation : not a valid choice'}
+2018-06-25 12:50:36,081 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:50:36] "POST /v1/questionaire/Wy5zDxX55RH7gU-f HTTP/1.1" 422 -
+2018-06-25 12:50:47,779 - app.questionaire.routes.questionaire.route - /home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py:96 - ERROR - name 'QuestionResponse' is not defined
+Traceback (most recent call last):
+  File "/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py", line 70, in updateQuestionaire
+    update_questionaire(data, questionaire_id)
+  File "/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py", line 35, in update_questionaire
+    questionaire = QuestionResponse.objects(id=questionaire_o_id).no_dereference().first()
+NameError: name 'QuestionResponse' is not defined
+2018-06-25 12:50:47,780 - app.error - /home/kartik/Documents/assessment/app/error.py:50 - DEBUG - 503 Service Unavailable: {'message': ''}
+2018-06-25 12:50:47,780 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:50:47] "POST /v1/questionaire/Wy5zDxX55RH7gU-f HTTP/1.1" 503 -
+2018-06-25 12:51:34,161 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:51:34,704 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:51:39,035 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:51:39,172 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:51:43,976 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:51:43] "POST /v1/questionaire/Wy5zDxX55RH7gU-f HTTP/1.1" 200 -
+2018-06-25 12:53:16,373 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/service/questionaire.py', reloading
+2018-06-25 12:53:16,766 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:53:38,595 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [25/Jun/2018 12:53:38] "GET /v1/questionaire/Wy5zDxX55RH7gU-f HTTP/1.1" 200 -
+2018-06-25 12:54:10,423 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionaire/routes/questionaire/route.py', reloading
+2018-06-25 12:54:10,729 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:54:55,245 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionResponse/model/questionResponse.py', reloading
+2018-06-25 12:54:55,730 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:55:17,620 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionResponse/model/questionResponse.py', reloading
+2018-06-25 12:55:18,221 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:56:38,833 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionResponse/routes/questionResponse/route.py', reloading
+2018-06-25 12:56:39,304 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:57:05,375 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionResponse/routes/questionResponse/route.py', reloading
+2018-06-25 12:57:05,778 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:57:26,634 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionResponse/service/questionResponse.py', reloading
+2018-06-25 12:57:26,727 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:58:00,002 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionResponse/service/questionResponse.py', reloading
+2018-06-25 12:58:00,218 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-06-25 12:58:34,494 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/app/questionResponse/service/questionResponse.py', reloading
+2018-06-25 12:58:34,679 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
