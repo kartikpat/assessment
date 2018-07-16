@@ -1,23 +1,38 @@
 from flask import  Flask,request,abort,jsonify, current_app
 from . import questions
-from ...service.questions import insert_question, update_question, get_questions_list, get_question
+from ...service.questions import insert_question, update_question, get_questions, get_question_by_id
 from ...model.questions import Question
 from .validate import validate
-from ....exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound
+from ....exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound, MissingGetParameters
 import logging
-from ....utils import get_data_in_dict
+from ....utils import get_data_in_dict, encode_objectId
 logger = logging.getLogger(__name__)
 
-
 @questions.route('/question', methods=['GET'])
-def fetch_all_questions():                
+def fetchQuestions():                
     try:
-        data = get_questions_list()
+
+        parameters = {}
+
+        parameters["author"] = request.args.get("author")
+
+        if not parameters["author"]:
+            raise MissingGetParameters('author parameter is required')
+
+        data = get_questions(parameters)
 
         return jsonify({
                 'status': 'success',
-                'data': data
-            })
+                'data': data 
+            }) 
+
+    except MissingGetParameters as e:
+        logger.exception(e)
+        message = ''
+        if hasattr(e, 'message'):
+            e.to_dict()
+            message = e.message
+        abort(400,{'message': message})    
 
     except Exception as e:
             logger.exception(e)
@@ -32,6 +47,8 @@ def create_question():
         validate(data, "insert")
          
         question_id = insert_question(data)
+
+        question_id = encode_objectId(question_id)
 
         return jsonify({
             'status': 'success',
@@ -99,11 +116,12 @@ def updateQuestion(question_id):
 @questions.route('/question/<question_id>', methods=['GET'])
 def fetch_question(question_id):
     try:
-        data = get_question(question_id)
+
+        data = get_question_by_id(question_id)
 
         return jsonify({
                 'status': 'success',
-                'data': data
+                'data': [data]
             })
 
     except (Question.DoesNotExist, InvalidObjectId) as e:

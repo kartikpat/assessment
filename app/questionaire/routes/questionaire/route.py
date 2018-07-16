@@ -1,22 +1,42 @@
-from flask import  Flask,abort,jsonify
+from flask import  Flask,abort,jsonify, request
 from . import questionaire
-from ...service.questionaire import insert_questionaire, update_questionaire, get_questionaire_list, get_questionaire
+from ...service.questionaire import insert_questionaire, update_questionaire, get_questionaire, get_questionaire_by_id, questionaire_exist
 from ...model.questionaire import Questionaire
 from .validate import validate
-from ....exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound
+from ....exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound, MissingGetParameters
 import logging
 from ....utils import get_data_in_dict, encode_objectId
 logger = logging.getLogger(__name__)
 
 @questionaire.route('/questionaire', methods=['GET'])
-def fetch_all_questionaire():                
+def fetchQuestionaire():                 
     try:
-        data = get_questionaire_list()
+
+        parameters = {}
+
+        parameters["association"] = request.args.get("association")
+        parameters["invocation"] = request.args.get("invocation")
+
+        if not parameters["association"]:
+            raise MissingGetParameters('association parameter is required')
+
+        if not parameters["invocation"]:
+            raise MissingGetParameters('invocation parameter is required')    
+
+        data = get_questionaire(parameters)
 
         return jsonify({
                 'status': 'success',
                 'data': data
-            })
+            })  
+
+    except MissingGetParameters as e:
+        logger.exception(e)
+        message = ''
+        if hasattr(e, 'message'):
+            e.to_dict()
+            message = e.message
+        abort(400,{'message': message})           
 
     except Exception as e:
             logger.exception(e)
@@ -29,8 +49,14 @@ def create_questionaire():
         data = get_data_in_dict()  
 
         validate(data, "insert")
-         
-        questionaire_id = insert_questionaire(data)
+
+        questionaire_id = None
+
+        if "association" in data and "invocation" in data:
+            questionaire_id = questionaire_exist(data)
+        
+        if not questionaire_id:  
+            questionaire_id = insert_questionaire(data)
 
         questionaire_id = encode_objectId(questionaire_id)
 
@@ -56,7 +82,7 @@ def create_questionaire():
     except Exception as e:
         logger.exception(e)
         message = ''
-        abort(503,{'message': message}) 
+        abort(503,{'message': message})        
 
 
 @questionaire.route('/questionaire/<questionaire_id>', methods=['POST'])
@@ -100,7 +126,7 @@ def updateQuestionaire(questionaire_id):
 @questionaire.route('/questionaire/<questionaire_id>', methods=['GET'])
 def fetch_questionaire(questionaire_id):
     try:
-        data = get_questionaire(questionaire_id)
+        data = get_questionaire_by_id(questionaire_id)
 
         return jsonify({
                 'status': 'success',

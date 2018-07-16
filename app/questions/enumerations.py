@@ -2,8 +2,11 @@ from enum import Enum, unique
 
 @unique
 class QuestionType(Enum):
-	MCQ = 1
-	SUBJECTIVE = 2
+	MULTI = 1
+	SINGLE = 2
+	YESNO = 3
+	SHORT = 4
+	LONG = 5
 
 @unique
 class QuestionOrigin(Enum):

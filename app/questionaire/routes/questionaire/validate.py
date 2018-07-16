@@ -1,42 +1,41 @@
 from wtforms import Form, BooleanField, StringField, validators, IntegerField, SelectField, Field
 from ....exception import ValidationError
-from ....utils import formValidate, isStringInstance, ifValueInTuple, isIntInstance, ifValueInEnum, isBooleanInstance,ListField, validateListLength, _validateListLength
+from ....utils import formValidate, ifValueInTuple, isIntInstance, ifValueInEnum, isBooleanInstance,ListField, validateListLength, _validateListLength
 from ...constants import *
 from ...enumerations import * 
 
-class QuestionsListField(ListField):
-    def pre_validate(self, form):
-        if(form.type.data == "static"):
-            validateListLength(self.data, self.name)
+# class QuestionsListField(ListField):
+#     def pre_validate(self, form):
+#         if(form.type.data == "static"):
+#             validateListLength(self.data, self.name)
 
-class TagsListField(ListField):
-    def pre_validate(self, form):
-        if(form.type.data == "dynamic"):
-            validateListLength(self.data, self.name) 
+# class TagsListField(ListField):
+#     def pre_validate(self, form):
+#         if(form.type.data == "dynamic"):
+#             validateListLength(self.data, self.name) 
 
-def validateNoOfQuestionField(form, field):
-    if form.type.data == "dynamic":
-        if not field.data:
-            raise ValidationError(field.name + " : " + "field is required" )
-        isIntInstance(form, field)
-        if field.data <= 0:
-            raise ValidationError(field.name + " : " + "value should be atleast one")
+# def validateNoOfQuestionField(form, field):
+#     if form.type.data == "dynamic":
+#         if not field.data:
+#             raise ValidationError(field.name + " : " + "field is required" )
+#         isIntInstance(form, field)
+#         if field.data <= 0:
+#             raise ValidationError(field.name + " : " + "value should be atleast one")
 
 class QuestionareSectionForm(Form):
-    heading = StringField('heading',[validators.optional(), isStringInstance])
+    heading = StringField('heading',[validators.optional()])
     type = StringField('type of section',[validators.InputRequired(), ifValueInTuple(questionaireSectionType)]) 
-    questions = QuestionsListField('static question ids associated with questionaire')
-    tags = TagsListField('tag ids for dynamic questionaire')  
-    noOfQuestion = Field('number of questions for dynamic questionaire', [validateNoOfQuestionField])
-
+      
+      
 class QuestionaireInsertForm(Form):
-    name = StringField('name',[validators.InputRequired(), isStringInstance])
-    description = StringField('description',[validators.optional(), isStringInstance])
-    author = IntegerField('id of the person created by',[validators.InputRequired(), validators.NumberRange(min=1)])
+    name = StringField('name',[validators.optional()])
+    description = StringField('description',[validators.optional()])
+    author = IntegerField('author',[validators.InputRequired()])
+    association = IntegerField('association',[validators.optional()])
     authorType = IntegerField('type of person(recruiter/admin/jobSeeker)',[validators.InputRequired(), ifValueInEnum(AuthorType)]) 
     status = IntegerField('current status of questionaire',[validators.optional(), ifValueInEnum(QuestionaireStatus)]) 
-    invocation = IntegerField('stage at which test to be held',[validators.optional(), ifValueInEnum(QuestionaireInvocation)])
-    instruction = StringField('instructions if any',[validators.optional(), isStringInstance])
+    invocation = IntegerField('stage at which test to be held',[validators.InputRequired(), ifValueInEnum(QuestionaireInvocation)])
+    instruction = StringField('instructions if any',[validators.optional()])
     viewType = StringField('view shown to front end user', [validators.optional(), ifValueInTuple(questionaireViewType)])
     blockWindow = Field('block window', [validators.optional(), isBooleanInstance])
     showAnswers = Field('show answers', [validators.optional(), isBooleanInstance])
@@ -44,20 +43,19 @@ class QuestionaireInsertForm(Form):
     sections = ListField('sections', [_validateListLength])
 
 class QuestionaireUpdateForm(Form):
-    description = StringField('description',[validators.optional(), isStringInstance]) 
+    description = StringField('description',[validators.optional()]) 
     status = IntegerField('current status of questionaire',[validators.optional(), ifValueInEnum(QuestionaireStatus)]) 
-    invocation = IntegerField('stage at which test to be held',[validators.optional(), ifValueInEnum(QuestionaireInvocation)])
-    instruction = StringField('instructions if any',[validators.optional(), isStringInstance])
+    instruction = StringField('instructions if any',[validators.optional()])
     viewType = StringField('view shown to front end user', [validators.optional(), ifValueInTuple(questionaireViewType)])
     blockWindow = Field('block window', [validators.optional(), isBooleanInstance])
     showAnswers = Field('show answers', [validators.optional(), isBooleanInstance])
-    durationInMin = IntegerField('test duration', [validators.optional(), validators.NumberRange(min=1)])    
+    durationInMin = IntegerField('test duration', [validators.optional(), validators.NumberRange(min=1)])  
+    sections = ListField('sections', [_validateListLength])  
     
 def validate(data, action):
     if action == "update":
         formValidate(QuestionaireUpdateForm, data)  
-        if len(data["sections"]) > 0:
-            sectionValidate(data["sections"])
+        sectionValidate(data["sections"])
         return    
 
     formValidate(QuestionaireInsertForm, data)

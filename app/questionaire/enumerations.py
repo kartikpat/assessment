@@ -4,7 +4,6 @@ from enum import Enum, unique
 class AuthorType(Enum):
 	ADMIN = 1
 	RECRUITER = 2
-	SEEKER = 3
 
 @unique
 class QuestionaireStatus(Enum):
@@ -16,6 +15,4 @@ class QuestionaireStatus(Enum):
 
 @unique
 class QuestionaireInvocation(Enum):
-	APPLY = 1
-	SHORTLIST = 2
-	REJECT = 3
+	SCREENING = 1

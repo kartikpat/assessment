@@ -4,61 +4,77 @@ from extras_mongoengine.fields import IntEnumField
 import datetime
 from ..enumerations import *
 from ..constants import *
-from ...utils import getDateInIsoFormat
+from ...utils import getDateInIsoFormat, encode_objectId
 
-class Question(Document):
-    _question = StringField(db_field='question',required=True)
-    _type = IntEnumField(QuestionType, db_field='type', required = True, default=QuestionType.MCQ)
-    _answerOptions = ListField(DynamicField(), db_field='ansOptions', required = True)
-    _answer = IntField(db_field='answer', min_value=0, required = True)
-    _createdAt = DateTimeField(db_field='createdAt',default=datetime.datetime.utcnow, required=True)
-    _updatedAt = DateTimeField(db_field='updatedAt')
-    _createdBy = LongField(db_field='createdBy', min_value=1, required = True)
-    _tags = ListField(LongField(min_value=0, unique=True),db_field='tags', default=None)
-    _origin = IntEnumField(QuestionOrigin, db_field='origin', default=QuestionOrigin.OTHERS)
-    _level = IntEnumField(QuestionLevel, db_field='level')
+class Question(Document): 
+    question = StringField(db_field='question',required=True, unique=True)
+    type = IntEnumField(QuestionType, db_field='type', required = True, default=QuestionType.MULTI)
+    answerOptions = ListField(DynamicField(), db_field='answerOptions')
+    answer = IntField(db_field='answer', min_value=0)
+    createdAt = DateTimeField(db_field='createdAt',default=datetime.datetime.utcnow, required=True)
+    updatedAt = DateTimeField(db_field='updatedAt')
+    author = LongField(db_field='author', min_value=1, required = True)
+    skillTags = ListField(LongField(min_value=0),db_field='skillTags', default=None)
+    origin = IntEnumField(QuestionOrigin, db_field='origin')
+    level = IntEnumField(QuestionLevel, db_field='level')
+    availability = BooleanField(db_field='availability', default=False)
+    mandatory = BooleanField(db_field='mandatory')
     
     def set_data(self, data):
-        self._question = data["question"]
+        self.question = data["question"]
         if "type" in data:
-            self._type = data["type"]
-        self._answerOptions = data["ansOptions"]
-        self._answer = data["answer"]
-        self._createdBy = data["createdBy"]
-        if "tags" in data:
-            self._tags = data["tags"]
+            self.type = int(data["type"])
+        if "answerOptions" in data:
+            self.answerOptions = data["answerOptions"] 
+        if "answer" in data:       
+            self.answer = data["answer"]
+        self.author = data["author"]
+        if "skillTags" in data:
+            self.skillTags = data["skillTags"]
         if "origin" in data:
-            self._origin = data["origin"] 
+            self.origin = data["origin"] 
         if "level" in data:
-            self._level = data["level"]    
+            self.level = data["level"]
+        if "mandatory" in data:
+            self.mandatory = data["mandatory"]        
 
     def update_data(self, data):
         if "question" in data:
             self._question = data["question"]
-        if "ansOptions" in data:   
-            self._answerOptions = data["ansOptions"]
+        if "answerOptions" in data:   
+            self.answerOptions = data["answerOptions"]
         if "answer" in data:   
-            self._answer = data["answer"]        
+            self.answer = data["answer"]        
         self._updatedAt = datetime.datetime.utcnow 
-        if "tags" in data:   
-            self._tags = data["tags"]
+        if "skillTags" in data:   
+            self.skillTags = data["skillTags"]
         if "level" in data:
-            self._level = data["level"]                   
-        
+            self.level = data["level"]                   
+        if "origin" in data:
+            self.level = data["level"]
+        if "mandatory" in data:
+            self.mandatory = data["mandatory"]    
+
     def get_data(self, data):
-        data["id"] = str(self.id)
-        data["question"] = self._question
-        data["type"] = int(self._type.value)
-        data["ansOptions"] = self._answerOptions
-        data["answer"] = self._answer
-        data["createdAt"] = getDateInIsoFormat(self._createdAt)
-        if self._updatedAt:
-            data["updatedAt"] = getDateInIsoFormat(self._updatedAt)
-        data["createdBy"] = self._createdBy  
-        if self._tags:
-            data["tags"] = self._tags  
-        data["origin"] = int(self._origin.value)
-        data["level"] = int(self._level.value)
+        data["id"] = encode_objectId(self.id)
+        data["question"] = self.question
+        data["type"] = int(self.type.value)
+        if "answerOptions" in self:
+            data["answerOptions"] = self.answerOptions
+        if "answer" in self:    
+            data["answer"] = self.answer
+        data["createdAt"] = getDateInIsoFormat(self.createdAt)
+        if "updatedAt" in self:
+            data["updatedAt"] = getDateInIsoFormat(self.updatedAt)
+        data["author"] = self.author  
+        if "skillTags" in self:
+            data["skillTags"] = self.skillTags  
+        if "origin" in self:    
+            data["origin"] = int(self.origin.value)
+        if "level" in self:    
+            data["level"] = int(self.level.value)
+        if "mandatory" in self:
+            data["mandatory"] = self.mandatory   
         return data 
 
         

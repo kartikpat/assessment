@@ -1,11 +1,11 @@
-from wtforms import Form
+from wtforms import Form, IntegerField, validators
 from ....exception import ValidationError
-from ....utils import ListField, _validateListLength, formValidate
+from ....utils import formValidate
 from ...constants import *
 from ...enumerations import * 
 
 class jobAssociateForm(Form):
-    jobs = ListField('jobs associated', [_validateListLength])    
+    association = IntegerField('association',[validators.InputRequired()])    
     
 def validate(data):    
     formValidate(jobAssociateForm, data)

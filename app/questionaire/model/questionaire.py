@@ -1,148 +1,165 @@
-from mongoengine.document import Document
 from mongoengine import *
 from extras_mongoengine.fields import IntEnumField
 import datetime
 from ..enumerations import AuthorType, QuestionaireStatus, QuestionaireInvocation
 from ..constants import questionaireViewType, questionaireSectionType
-from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId
+from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId 
 
 class QuestionaireProperty(EmbeddedDocument):
-    _viewType = StringField(db_field='viewType', default='slide', choices=questionaireViewType)
-    _showAnswers = BooleanField(db_field='showAnswers', default=False)
-    _durationInMin = IntField(db_field='durationInMin', min_value = 0 , required=True, default=30)
-    _blockWindow = BooleanField(db_field='blockWindow', default=False)
+    viewType = StringField(db_field='viewType', choices=questionaireViewType)
+    showAnswers = BooleanField(db_field='showAnswers')
+    durationInMin = IntField(db_field='durationInMin', min_value = 0)
+    blockWindow = BooleanField(db_field='blockWindow')
 
     def set_data(self, data):
         if "viewType" in data:
-            self._viewType = data["viewType"]
+            self.viewType = data["viewType"]
         if "showAnswers" in data:
-            self._showAnswers = data["showAnswers"]
+            self.showAnswers = data["showAnswers"]
         if "durationInMin" in data:
-            self._durationInMin = data["durationInMin"]
+            self.durationInMin = data["durationInMin"]
         if "blockWindow" in data:
-            self._blockWindow = getBooleanValue(data["blockWindow"])    
+            self.blockWindow = getBooleanValue(data["blockWindow"])    
 
     def update_data(self, data):  
         if "viewType" in data:
-            self._viewType = data["viewType"]
+            self.viewType = data["viewType"]
         if "showAnswers" in data:
-            self._showAnswers = data["showAnswers"]
+            self.showAnswers = data["showAnswers"]
         if "durationInMin" in data:
-            self._durationInMin = data["durationInMin"]  
+            self.durationInMin = data["durationInMin"]  
         if "blockWindow" in data:
-            self._blockWindow = getBooleanValue(data["blockWindow"])
+            self.blockWindow = getBooleanValue(data["blockWindow"])
 
     def get_data(self, data):
-        data["viewType"] = self._viewType
-        data["showAnswers"] = self._showAnswers
-        data["durationInMin"] = self._durationInMin
-        data["blockWindow"] = self._blockWindow 
+        if self.viewType:
+            data["viewType"] = self.viewType
+        if self.showAnswers:
+            data["showAnswers"] = self.showAnswers
+        if self.durationInMin:
+            data["durationInMin"] = self.durationInMin
+        if self.blockWindow:
+            data["blockWindow"] = self.blockWindow 
         return data    
 
 class QuestionaireSection(EmbeddedDocument):
-    _id = IntField(db_field='id', min_value=0)
-    _heading = StringField(db_field='heading')
-    _type = StringField(db_field='type', default='static', choices=questionaireSectionType)
-    _noOfQuestion = IntField(min_value=0, db_field='noOfQuestion')
-    _tags = ListField(LongField(min_value=0, unique=True),db_field='tags', default=None)
-    _questions = ListField(LongField(min_value=0, unique=True),db_field='questions', default=None)
+    id = IntField(db_field='id', min_value=0, required=True)
+    heading = StringField(db_field='heading')
+    type = StringField(db_field='type',required= True, choices=questionaireSectionType)
+    noOfQuestion = IntField(min_value=0, db_field='noOfQuestion')
+    skillTags = ListField(LongField(min_value=0),db_field='skillTags', default=None)
+    questionIds = ListField(ObjectIdField(),db_field='questionIds', default=None)
 
     def set_data(self, data, s_id):
-        self._id = s_id
+        self.id = s_id
         if "heading" in data:
-            self._heading = data["heading"]
-        self._type = data["type"]
+            self.heading = data["heading"]
+        self.type = data["type"]
         if data["type"] == "static":
-            self._questions = data["questions"]
-        
+            self.questionIds = data["questionIds"]
         elif data["type"] == "dynamic":
-            self._noOfQuestion = data["noOfQuestion"]
-            self._tags = data["tags"]
+            self.noOfQuestion = data["noOfQuestion"]
+            self.skillTags = data["skillTags"]
          
-
     def update_data(self, data):
         if "heading" in data:
-            self._heading = data["heading"]
+            self.heading = data["heading"]
 
         if data["type"] == "static":
-            self._questions = data["questions"]
+            self.questionIds = data["questionIds"]
         
         elif data["type"] == "dynamic":
-            self._noOfQuestion = data["noOfQuestion"]
-            self._tags = data["tags"]            
+            self.noOfQuestion = data["noOfQuestion"]
+            self.skillTags = data["skillTags"]            
 
     def get_data(self, data):
-        data["id"] = self._id
-        data["heading"] = self._heading
-        data["type"] = self._type
+        data["id"] = self.id
+        if self.heading:
+            data["heading"] = self.heading
+        data["type"] = self.type
 
         if data["type"] == "static":
-            data["questions"] = self._questions 
-        
+            questionIds = self.questionIds
+              
         elif data["type"] == "dynamic":
-            data["noOfQuestion"] = self._noOfQuestion
-            data["tags"] = self._tags
+            data["noOfQuestion"] = self.noOfQuestion
+            data["skillTags"] = self.skillTags
 
-        return data               
+        return data, questionIds               
 
 class Questionaire(Document):
-    _name = StringField(db_field='name',unique=True,required=True)
-    _jobs = ListField(LongField(min_value=0, unique=True),db_field='jobs', default=None)
-    _description = StringField(db_field='description')
-    _author = LongField(db_field='author', min_value=1, required = True)
-    _authorType = IntEnumField(AuthorType, db_field='authorType', required = True)
-    _createdAt = DateTimeField(db_field='createdAt',default=datetime.datetime.utcnow, required=True)
-    _updatedAt = DateTimeField(db_field='updatedAt')
-    _status = IntEnumField(QuestionaireStatus, default=QuestionaireStatus.SAVED, db_field='status',required=True)
-    _invocation = IntEnumField(QuestionaireInvocation, db_field='invocation', required=True, default=QuestionaireInvocation.APPLY)
-    _instruction = StringField(db_field='instruction')
-    _property = EmbeddedDocumentField(QuestionaireProperty, db_field='property')
-    _sections = ListField(EmbeddedDocumentField(QuestionaireSection), db_field='sections')
+    name = StringField(db_field='name')
+    author = DynamicField(db_field='author',required=True)
+    authorType = IntEnumField(AuthorType, db_field='authorType', required = True)
+    association = DynamicField(db_field='association')
+    createdAt = DateTimeField(db_field='createdAt',default=datetime.datetime.utcnow, required=True)
+    updatedAt = DateTimeField(db_field='updatedAt')
+    status = IntEnumField(QuestionaireStatus, default=QuestionaireStatus.SAVED, db_field='status',required=True)
+    tags = DictField(db_field='tags')
+    invocation = IntEnumField(QuestionaireInvocation, db_field='invocation', required=True)
+    description = StringField(db_field='description')
+    instruction = StringField(db_field='instruction')
+    property = EmbeddedDocumentField(QuestionaireProperty, db_field='property')
+    sections = EmbeddedDocumentListField(QuestionaireSection, db_field='sections')
 
+    meta = {
+        'indexes': [
+            {
+                'fields': ['association', 'invocation'],
+                'unique': True
+            }
+        ]
+    }
     
     def set_data(self, data, q_property, q_sections):
-        self._name = data["name"]
-        if "jobs" in data:
-            self._jobs = data["jobs"]
+        if "name" in data:
+            self.name = data["name"]
+        self.authorType = data["authorType"]
+        self.author = data["author"]
+        if "association" in data:  
+            self.association = data["association"]      
+        self.invocation = data["invocation"]  
         if "description" in data:
-            self._description = data["description"]
-        self._author = data["author"]
-        self._authorType = data["authorType"]
-        self._invocation = data["invocation"]
+            self.description = data["description"]        
         if "instruction" in data:
-            self._instruction = data["instruction"]
-        self._property = q_property
-        self._sections = q_sections 
+            self.instruction = data["instruction"]
+        if "tags" in data:
+            self.tags = data["tags"]
+        if q_property:
+            self.property = q_property            
+        self.sections = q_sections 
 
-    def update_data(self, data):
+    def update_data(self, data, q_property, q_sections):
+        if "name" in data:
+            self.name = data["name"]
         if "description" in data:
-            self._description = data["description"]
-        self._updatedAt = datetime.datetime.utcnow 
+            self.description = data["description"]
+        self.updatedAt = datetime.datetime.utcnow 
         if "status" in data:   
-            self._status = data["status"]
-        if "invocation" in data:   
-            self._invocation = data["invocation"]
+            self.status = data["status"]
         if "instruction" in data:   
-            self._instruction = data["instruction"]
-        if "jobs" in data:
-            self._jobs = data["jobs"]                   
+            self.instruction = data["instruction"]
+        if q_property:    
+            self.property = q_property
+        self.sections = q_sections                   
         
     def get_data(self, data):
         data["id"] = encode_objectId(self.id)
-        data["name"] = self._name
-        if self._description:
-            data["description"] = self._description
-        data["author"] = self._author
-        data["authorType"] = int(self._authorType.value)
-        data["createdAt"] = getDateInIsoFormat(self._createdAt)
-        if self._jobs:
-            data["jobs"] = self._jobs
-        if self._updatedAt:
-            data["updatedAt"] = getDateInIsoFormat(self._updatedAt)
-        data["status"] = int(self._status.value)
-        data["invocation"] = int(self._invocation.value)
-        if self._instruction:
-            data["instruction"] = self._instruction
+        if self.name:
+            data["name"] = self.name
+        if self.description:
+            data["description"] = self.description
+        if self.tags:    
+            data["tags"] = self.tags
+        data["authorType"] = int(self.authorType.value)
+        data["createdAt"] = getDateInIsoFormat(self.createdAt)
+        if self.updatedAt:
+            data["updatedAt"] = getDateInIsoFormat(self.updatedAt)
+        data["status"] = int(self.status.value)
+        data["invocation"] = int(self.invocation.value)
+        if self.instruction:
+            data["instruction"] = self.instruction
+
         return data 
 
         

@@ -35,10 +35,7 @@ def get_data_in_dict():
         return data
 
     raise BadContentType('content type is not valid')
-
-def isStringInstance(form,field):
-    if not isinstance(field.data, str):
-        raise ValidationError(field.name + " : " + "only string values are accepted")  
+  
 
 def isIntInstance(form,field):
     if not isinstance(field.data, int):
@@ -64,6 +61,15 @@ def ifValueInEnum(enum_name, message=None):
 
     return _ifValueInEnum
 
+def keyRequired(key, message=None):
+    if not message:
+        message = key + 'is required'
+    def _keyRequired(form, field):
+        print(field.name)
+        raise ValidationError(message)
+
+    return _keyRequired    
+
 def isBooleanInstance(form, field):
     if not field.data in (True,False,0,1):
         raise ValidationError(field.name + " : " + "only boolean values are accepted")
@@ -83,7 +89,12 @@ def _validateListLength(form, field):
 
 def validateListLength(list_data, list_name):
     if len(list_data) == 0:
-        raise ValidationError(list_name + ' list can\'t be empty')        
+        raise ValidationError(list_name + ' list can\'t be empty') 
+
+def minListLength(list_data, list_name, length):
+    print(list_data)
+    if len(list_data) < length:
+        raise ValidationError('atleast two values required of' + list_name )                
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -100,7 +111,7 @@ def decode_objectId(value):
     return ObjectId(base64_decode(value))
 
 def encode_objectId(value):
-    return str(base64_encode(value.binary), 'utf-8')
+    return str(base64_encode(value.binary), 'utf-8')  
 
         
 

@@ -3,6 +3,7 @@ from flask import Flask
 from flask_mongoengine import MongoEngine
 import logging, json
 import logging.handlers, logging.config
+from flask_cors import CORS
 
 # local imports
 from config import app_config
@@ -20,6 +21,7 @@ def create_app(config_name):
     configInstance = app_config[config_name]()
     app.config.from_pyfile(configInstance.FLASK_CONFIG)
     db.init_app(app)
+    CORS(app)
  
     if(configInstance.FLASK_LOGGING):
         with open("loggingConfiguration.json", 'r') as logging_configuration_file:
@@ -36,6 +38,9 @@ def create_app(config_name):
 
     from .questionaire.routes.tagAssociation import tagAssociationWithQuestionaire as tagAssociationWithQuestionaire_route
     app.register_blueprint(tagAssociationWithQuestionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
+
+    from .questionaire.routes.questionAssociation import questionAssociationWithQuestionaire as questionAssociationWithQuestionaire_route
+    app.register_blueprint(questionAssociationWithQuestionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
 
     #questions blueprints registration
     from .questions.routes.questions import questions as questions_route

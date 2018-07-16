@@ -1,6 +1,6 @@
 from flask import  Flask, abort, jsonify
-from . import jobAssociation
-from ...service.jobAssociation import associate_job_list_with_questionaire, get_associated_job_list_with_questionaire
+from . import questionAssociationWithQuestionaire
+from ...service.questionAssociation import associate_question_with_questionaire
 from ...model.questionaire import Questionaire
 from .validate import validate
 from ....exception import BadContentType,InvalidObjectId, ValidationError
@@ -8,33 +8,18 @@ import logging
 from app.utils import get_data_in_dict
 logger = logging.getLogger(__name__)
 
-@jobAssociation.route('/questionaire/<questionaire_id>/job', methods=['GET'])
-def fetch_job_associated_with_questionaire(questionaire_id):                
-    try:
-        data = get_associated_job_list_with_questionaire(questionaire_id)
-
-        return jsonify({
-                'status': 'success',
-                'data': data
-            })
-
-    except Exception as e:
-            logger.exception(e)
-            message = ''
-            abort(503,{'message': message})
-
-@jobAssociation.route('/questionaire/<questionaire_id>/job', methods=['POST'])
-def associate_job_with_questionaire(questionaire_id):  
+@questionAssociationWithQuestionaire.route('/questionaire/<questionaire_id>/section/<section_id>/question', methods=['POST'])
+def associateQuestionWithQuestionaire(questionaire_id, section_id):                
     try:
         data = get_data_in_dict()  
 
         validate(data)
          
-        associate_job_with_questionaire(data, questionaire_id)
+        associate_question_with_questionaire(data, questionaire_id, section_id)
 
         return jsonify({
             'status': 'success',
-            'message': 'job associated successfully'
+            'message': 'questions associated successfully'
         })
 
     except (KeyError, BadContentType) as e:
@@ -50,9 +35,9 @@ def associate_job_with_questionaire(questionaire_id):
         message = e.message
         abort(422,{'message': message})  
 
-    except (Question.DoesNotExist, InvalidObjectId) as e:
+    except (Questionaire.DoesNotExist, InvalidObjectId) as e:
         logger.exception(e)
-        message = 'questionaire id doesn\'t exist'
+        message = 'questionaire id or section id doesn\'t exist'
         if hasattr(e, 'message'):
             e.to_dict()
             message = e.message
@@ -62,3 +47,5 @@ def associate_job_with_questionaire(questionaire_id):
         logger.exception(e)
         message = ''
         abort(503,{'message': message})
+
+    
