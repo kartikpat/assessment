@@ -1,0 +1,31 @@
+amqp==2.3.0
+app==1.1
+-e git+git@github.com:Highorbit/assessment.git@61f5f537efa89f139995355541ac1f46bba45ef6#egg=Assessment
+billiard==3.5.0.3
+celery==4.1.1
+click==6.7
+extras-mongoengine==0.1
+fields==5.0.0
+Flask==1.0.2
+Flask-Cors==3.0.6
+-e git+https://github.com/nathancahill/flask-inputs.git@9d7d32902fe04ceb5a6344edaa35b070cf93a6dc#egg=Flask_Inputs
+flask-json-multidict==1.0.0
+flask-mongoengine==0.9.5
+Flask-WTF==0.14.2
+future==0.16.0
+gunicorn==19.9.0
+itsdangerous==0.24
+Jinja2==2.10
+kombu==4.2.0
+logger==1.4
+MarkupSafe==1.0
+mongoengine==0.15.0
+pymongo==3.6.1
+python-dateutil==2.7.3
+python-dotenv==0.8.2
+pytz==2018.4
+redis==2.10.6
+six==1.11.0
+vine==1.1.4
+Werkzeug==0.14.1
+WTForms==2.1

@@ -19,7 +19,7 @@ class ProductionConfig(Config):
     Production configurations   
     """
     FLASK_CONFIG = 'production_config.py'
-    FLASK_LOGGING = False
+    FLASK_LOGGING = True
 
 class TestingConfig(Config):
     """
