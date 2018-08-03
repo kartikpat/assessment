@@ -1,6 +1,6 @@
 amqp==2.3.0
-app==1.1
--e git+git@github.com:Highorbit/assessment.git@61f5f537efa89f139995355541ac1f46bba45ef6#egg=Assessment
+app==1.0
+-e git+git@github.com:Highorbit/assessment.git@5c70fc676112240a448d62cea17e45d5f3f82da6#egg=Assessment
 billiard==3.5.0.3
 celery==4.1.1
 click==6.7
