@@ -39,7 +39,7 @@ class QuestionResponse(Document):
     questionaireId = ObjectIdField(db_field='questionaireId',required=True)
     seeker = LongField(db_field='seeker', min_value=1, required = True)
     associationPublished = LongField(db_field='associationPublished', required=True)
-    assessedOn = DateTimeField(db_field='assessedOn', required=True)
+    assessedOn = DateTimeField(db_field='assessedOn',default=datetime.datetime.utcnow, required=True)
     invocation = IntEnumField(Invocation, db_field='invocation', required=True)
     timeTaken = IntField(db_field='timeTaken')
 
@@ -55,7 +55,8 @@ class QuestionResponse(Document):
     def set_data(self, data, sections):
         self.questionaireId = decode_objectId(data["questionaireId"])
         self.seeker = data["seeker"]
-        self.assessedOn = data["assessedOn"]
+        if "assessedOn" in data:
+            self.assessedOn = data["assessedOn"]
         self.associationPublished = data["associationPublished"]
         self.invocation = data["invocation"]
         if "timeTaken" in data:

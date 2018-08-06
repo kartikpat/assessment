@@ -4,7 +4,7 @@ import datetime
 from ..enumerations import AuthorType, QuestionaireStatus
 from ...enumerations import Invocation 
 from ..constants import questionaireViewType, questionaireSectionType
-from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId 
+from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId , decode_objectId
 
 class QuestionaireProperty(EmbeddedDocument):
     viewType = StringField(db_field='viewType', choices=questionaireViewType)
@@ -57,6 +57,7 @@ class QuestionaireSection(EmbeddedDocument):
             self.heading = data["heading"]
         self.type = data["type"]
         if data["type"] == "static":
+            data["questionIds"] = list(map(decode_objectId, data["questionIds"]))
             self.questionIds = data["questionIds"]
         elif data["type"] == "dynamic":
             self.noOfQuestion = data["noOfQuestion"]
@@ -67,6 +68,7 @@ class QuestionaireSection(EmbeddedDocument):
             self.heading = data["heading"]
  
         if data["type"] == "static":
+            data["questionIds"] = list(map(decode_objectId, data["questionIds"]))
             self.questionIds = data["questionIds"]
         
         elif data["type"] == "dynamic":

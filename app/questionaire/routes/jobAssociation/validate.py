@@ -5,7 +5,8 @@ from ...constants import *
 from ...enumerations import * 
 
 class jobAssociateForm(Form):
-    associationMeta = IntegerField('associationMeta',[validators.InputRequired()])    
+    associationMeta = IntegerField('associationMeta',[validators.optional()]) 
+    associationPublished = IntegerField('associationPublished',[validators.optional()])
     
 def validate(data):    
     formValidate(jobAssociateForm, data)
