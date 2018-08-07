@@ -108,7 +108,6 @@ def createQuestionDetails(data):
         for index, question in enumerate(data["questions"]):
             questionDetail = QuestionDetail()
             questionDetail.set_data(question)
-            print(questionDetail)
             questions.append(questionDetail)
 
     return questions
@@ -120,7 +119,6 @@ def createQuestionResponseSections(data):
 
         for index, aSection in enumerate(data["sections"]):
             questions = createQuestionDetails(aSection)
-            
             questionResponseSection = QuestionResponseSection()
             questionResponseSection.set_data(aSection, questions)
             sections.append(questionResponseSection)
