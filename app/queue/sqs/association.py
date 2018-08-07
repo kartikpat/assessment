@@ -1,39 +1,39 @@
 from services import sendMessage, receiveMessage, deleteMessage
    
-# try:
-# 	sendMessage('association keys',{
-# 	    'metaOld': { 
-# 	    	'DataType': 'Number',
-#             'StringValue': "333033" 
-#         },
-# 	    'publishedOld': { 
-# 	    	'DataType': 'Number',
-#             'StringValue': "334895"
-#         },
-# 	    'metaNew': { 
-# 	    	'DataType': 'Number',
-#             'StringValue': "123456"
-#         },
-# 	    'publishedNew': { 
-# 	    	'DataType': 'Number',
-#             'StringValue': "334896"
-#         }
-# 	})
-
-# except Exception as e:
-#     print(e)	
-
 try:
-	response = receiveMessage()
+	sendMessage('association keys',{
+	    'metaOld': { 
+	    	'DataType': 'Number',
+            'StringValue': "333033" 
+        },
+	    'publishedOld': { 
+	    	'DataType': 'Number',
+            'StringValue': "334895"
+        },
+	    'metaNew': { 
+	    	'DataType': 'Number',
+            'StringValue': "123456"
+        },
+	    'publishedNew': { 
+	    	'DataType': 'Number',
+            'StringValue': "334896"
+        }
+	})
 
-	message = response['Messages'][0]
-	receipt_handle = message['ReceiptHandle']
+except Exception as e:
+    print(e)	
 
-	print(message)
+# try:
+# 	response = receiveMessage()
 
-	deleteMessage(receipt_handle)
+# 	message = response['Messages'][0]
+# 	receipt_handle = message['ReceiptHandle']
+
+# 	print(message)
+
+# 	deleteMessage(receipt_handle)
 
 	
 
-except Exception as e:
-	print(e)	
+# except Exception as e:
+# 	print(e)	
