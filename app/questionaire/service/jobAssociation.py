@@ -9,9 +9,9 @@ def associateJobWithquestionaire(data, questionaire_id):
     if not is_valid_object_id(questionaire_id):
         raise InvalidObjectId('invalid questionaire id') 
 
-    if("associationMeta" in data && data["associationMeta"]):
+    if("associationMeta" in data and data["associationMeta"]):
         questionaire = Questionaire.objects(id=questionaire_id).update_one(associationMeta=data["associationMeta"])
-    if("associationPublished" in data && data["associationPublished"]):
+    if("associationPublished" in data and data["associationPublished"]):
         questionaire = Questionaire.objects(id=questionaire_id).update_one(associationPublished=data["associationPublished"])    
     if not questionaire: 
         raise Questionaire.DoesNotExist
