@@ -17978,3 +17978,7 @@ pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connect
 2018-08-03 12:02:16,721 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO - 127.0.0.1 - - [03/Aug/2018 12:02:16] "GET /v1/questionaire?invocation=1&associationPublished=334895 HTTP/1.1" 503 -
 2018-08-03 12:14:51,540 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/config.py', reloading
 2018-08-03 12:14:51,795 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Restarting with stat
+2018-08-06 13:19:31,037 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Detected change in '/home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/dateutil/__init__.py', reloading
+2018-08-06 13:25:39,381 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2018-08-06 15:27:42,245 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2018-08-06 16:09:35,832 - werkzeug - /home/kartik/Documents/assessment/venv/lib/python3.6/site-packages/werkzeug/_internal.py:88 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
