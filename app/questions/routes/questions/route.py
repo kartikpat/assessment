@@ -58,10 +58,10 @@ def create_question():
             'data': question_id
         })
 
-    except NotUniqueError as e:    
-        logger.exception(e)
-        message = 'question text already exists'
-        abort(409,{'message': message}) 
+    # except NotUniqueError as e:    
+    #     logger.exception(e)
+    #     message = 'question text already exists'
+    #     abort(409,{'message': message}) 
 
     except KeyError as e:
         logger.exception(e.args[0])

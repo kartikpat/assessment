@@ -7,7 +7,7 @@ from ..constants import *
 from ...utils import getDateInIsoFormat, encode_objectId
 
 class Question(Document): 
-    question = StringField(db_field='question',required=True, unique=True)
+    question = StringField(db_field='question',required=True)
     type = IntEnumField(QuestionType, db_field='type', required = True, default=QuestionType.MULTI)
     answerOptions = ListField(DynamicField(), db_field='answerOptions', default=None)
     answer = IntField(db_field='answer', min_value=0)
