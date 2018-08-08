@@ -1,11 +1,12 @@
 from flask import  Flask, abort, jsonify
 from . import getSeekers
 from ....questionResponse.service.getSeekers import get_seekers
-from ....exception import BadContentType,InvalidObjectId, ValidationError
+from ....exception import BadContentType,InvalidObjectId, FormValidationError
 from ...model.questionaire import Questionaire
 import logging
 from ....utils import get_data_in_dict, encode_objectId
 from .validate import validate
+from mongoengine import * 
 logger = logging.getLogger(__name__)
 
 @getSeekers.route('/questionaire/<questionaire_id>/seekers', methods=['POST'])
@@ -23,7 +24,7 @@ def fetch_seekers_with_given_reponses(questionaire_id):
                 'data': seekers
             })
 
-    except ValidationError as e: 
+    except (FormValidationError, ValidationError) as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message})     

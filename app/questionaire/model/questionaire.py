@@ -52,7 +52,7 @@ class QuestionaireSection(EmbeddedDocument):
     questionIds = ListField(ObjectIdField(),db_field='questionIds', default=None)
 
     def set_data(self, data, s_id):
-        self.id = s_id
+        self.id = int(s_id)
         if "heading" in data:
             self.heading = data["heading"]
         self.type = data["type"]
@@ -60,7 +60,7 @@ class QuestionaireSection(EmbeddedDocument):
             data["questionIds"] = list(map(decode_objectId, data["questionIds"]))
             self.questionIds = data["questionIds"]
         elif data["type"] == "dynamic":
-            self.noOfQuestion = data["noOfQuestion"]
+            self.noOfQuestion = int(data["noOfQuestion"])
             self.skillTags = data["skillTags"]
          
     def update_data(self, data):
@@ -122,12 +122,13 @@ class Questionaire(Document):
     def set_data(self, data, q_property, q_sections):
         if "name" in data:
             self.name = data["name"]
-        self.authorType = data["authorType"]
+        self.authorType = int(data["authorType"])
         self.author = data["author"]  
-        self.associationMeta = data["associationMeta"]      
-        self.invocation = data["invocation"]  
+        self.invocation = int(data["invocation"])  
+        if "associationMeta" in data:
+            self.associationMeta = int(data["associationMeta"])
         if "associationPublished" in data:
-            self.associationPublished = data["associationPublished"]
+            self.associationPublished = int(data["associationPublished"])
         if "description" in data:
             self.description = data["description"]        
         if "instruction" in data:

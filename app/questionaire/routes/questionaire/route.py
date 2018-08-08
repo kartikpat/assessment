@@ -2,10 +2,11 @@ from flask import  Flask,abort,jsonify, request
 from . import questionaire
 from ...service.questionaire import insert_questionaire, update_questionaire, get_questionaire, get_questionaire_by_id, questionaire_exist
 from ...model.questionaire import Questionaire
-from .validate import validate
-from ....exception import BadContentType,InvalidObjectId, ValidationError, MissingGetParameters
+from .validate import validate 
+from ....exception import BadContentType,InvalidObjectId, FormValidationError, MissingGetParameters
 import logging
 from ....utils import get_data_in_dict, encode_objectId
+from mongoengine import *
 logger = logging.getLogger(__name__)
 
 @questionaire.route('/questionaire', methods=['GET'])
@@ -86,7 +87,7 @@ def create_questionaire():
             message = e.message
         abort(400,{'message': message}) 
 
-    except ValidationError as e: 
+    except (FormValidationError, ValidationError) as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message}) 
@@ -112,7 +113,7 @@ def updateQuestionaire(questionaire_id):
             'message': 'questionaire updated successfully'
         })
 
-    except ValidationError as e: 
+    except (FormValidationError, ValidationError) as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message})     

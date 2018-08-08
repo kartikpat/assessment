@@ -3,10 +3,10 @@ from . import questions
 from ...service.questions import insert_question, update_question, get_questions, get_question_by_id, checkAvailabiltyOfQuestion
 from ...model.questions import Question
 from .validate import validate
-from ....exception import BadContentType,InvalidObjectId, ValidationError, MissingGetParameters
+from ....exception import BadContentType,InvalidObjectId, FormValidationError, MissingGetParameters
 import logging
 from ....utils import get_data_in_dict, encode_objectId 
-from mongoengine import NotUniqueError
+from mongoengine import *
 logger = logging.getLogger(__name__)
 
 @questions.route('/question', methods=['GET'])
@@ -76,7 +76,7 @@ def create_question():
             message = e.message
         abort(400,{'message': message}) 
 
-    except ValidationError as e: 
+    except (FormValidationError, ValidationError) as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message}) 
@@ -112,7 +112,7 @@ def updateQuestion(question_id):
         })
         
 
-    except ValidationError as e: 
+    except (FormValidationError, ValidationError) as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message})     

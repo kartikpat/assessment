@@ -1,10 +1,12 @@
 from app.questionResponse.model.questionResponse import QuestionResponse, QuestionDetail, QuestionResponseSection
+from app.questionaire.model.questionaire import Questionaire
 from bson import ObjectId
 import bson
-from ...exception import InvalidObjectId
+from ...exception import InvalidObjectId, EntityNotExists
 from ...utils import is_valid_object_id, decode_objectId, encode_objectId
 from mongoengine.queryset.visitor import Q
-from ...questions.service.questions import get_question_by_id
+import app.questions.service as question_service_module
+import app.questionaire.service as questionaire_service_module 
 
 def questionResponse_exist(data):
     questionResponse = QuestionResponse.objects(Q(associationPublished=data["associationPublished"]) & Q(invocation=int(data["invocation"])) & Q(seeker=int(data["seeker"]))).only('id').first()
@@ -30,6 +32,15 @@ def getQuestionResponse(data, seeker, associationPublished,invocation, questionI
     return data    
 
 def insert_questionResponse(data):
+    questionaireExistParameters = {
+        "associationPublished": data["associationPublished"],
+        "invocation": data["invocation"]
+    }
+
+    questionaireId = questionaire_service_module.questionaire.questionaire_exist(questionaireExistParameters);
+
+    if not questionaireId:
+        raise EntityNotExists('no questionaire is associated with the job')   
 
     sections = createQuestionResponseSections(data)
 
@@ -132,7 +143,7 @@ def getQuestionsData(questionResponseSection, data):
         for question in questionResponseSection.questions:
             aQuestion = {}
             aQuestion, questionId = question.get_data(aQuestion)
-            aQuestion = get_question_by_id(questionId, aQuestion); 
+            aQuestion = question_service_module.questions.get_question_by_id(questionId, aQuestion); 
             data["questions"].append(aQuestion)
 
         return data  

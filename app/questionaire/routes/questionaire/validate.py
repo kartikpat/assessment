@@ -1,5 +1,4 @@
 from wtforms import Form, BooleanField, StringField, validators, IntegerField, SelectField, Field
-from ....exception import ValidationError
 from ....utils import formValidate, ifValueInTuple, isIntInstance, ifValueInEnum, isBooleanInstance,ListField, validateListLength, _validateListLength
 from ...constants import *
 from ...enumerations import * 

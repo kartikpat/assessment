@@ -28,7 +28,7 @@ class Question(Document):
             self.answerOptions = data["answerOptions"] 
         if "answer" in data:       
             self.answer = data["answer"]
-        self.author = data["author"]
+        self.author = int(data["author"])
         if "skillTags" in data:
             self.skillTags = data["skillTags"]
         if "origin" in data:

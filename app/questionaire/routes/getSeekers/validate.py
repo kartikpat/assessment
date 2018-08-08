@@ -1,9 +1,9 @@
 from wtforms import Form, IntegerField, validators
-from ....exception import ValidationError    
+from ....exception import FormValidationError    
     
 def validate(data):    
     if not "questions" in data:
-        raise ValidationError("questions: This field is required") 
+        raise FormValidationError("questions: This field is required") 
         
         
  

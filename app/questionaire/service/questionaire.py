@@ -4,13 +4,18 @@ import bson
 from ...exception import InvalidObjectId, EmbeddedDocumentNotFound
 from ...utils import is_valid_object_id, decode_objectId, encode_objectId
 from mongoengine.queryset.visitor import Q
-from ...questions.service.questions import get_question_by_id
-from ...questionResponse.service.questionResponse import getQuestionResponse
+import app.questions.service as question_service_module
+import app.questionResponse.service as questionResponse_service_module
 
 def questionaire_exist(data):
-    questionaire = Questionaire.objects(Q(associationMeta=data["associationMeta"]) & Q(invocation=data["invocation"])).only('id').first()
+    if("associationMeta" in data):
+        questionaire = Questionaire.objects(Q(associationMeta=int(data["associationMeta"])) & Q(invocation=int(data["invocation"]))).only('id').first()
+    if("associationPublished" in data):
+        questionaire = Questionaire.objects(Q(associationPublished=int(data["associationPublished"])) & Q(invocation=int(data["invocation"]))).only('id').first()    
     if questionaire:
-       return questionaire.id 
+       return questionaire.id
+
+    return None     
 
 def insert_questionaire(data):
 
@@ -106,10 +111,10 @@ def getSectionData(questionaire, data, parameters):
             if questionaire_section["type"] == "static":
                 questionaire_section["questions"] = []
                 for questionId in questionIds:
-                    aQuestion = get_question_by_id(encode_objectId(questionId), {});
+                    aQuestion = question_service_module.questions.get_question_by_id(encode_objectId(questionId), {});
                     
                     if parameters["seeker"]:
-                        aQuestion = getQuestionResponse(aQuestion, parameters["seeker"], parameters["associationPublished"],parameters["invocation"] ,questionId, questionaire_section["id"])
+                        aQuestion = questionResponse_service_module.questionResponse.getQuestionResponse(aQuestion, parameters["seeker"], parameters["associationPublished"],parameters["invocation"] ,questionId, questionaire_section["id"])
                     
                     questionaire_section["questions"].append(aQuestion);
             

@@ -26,7 +26,7 @@ class QuestionResponseSection(EmbeddedDocument):
     questions = EmbeddedDocumentListField(QuestionDetail, db_field='questions')   
 
     def set_data(self, data, questions): 
-        self.id = data["id"]
+        self.id = int(data["id"])
         if questions:
             self.questions = questions                                       
         
@@ -54,11 +54,11 @@ class QuestionResponse(Document):
     
     def set_data(self, data, sections):
         self.questionaireId = decode_objectId(data["questionaireId"])
-        self.seeker = data["seeker"]
+        self.seeker = int(data["seeker"])
         if "assessedOn" in data:
             self.assessedOn = data["assessedOn"]
-        self.associationPublished = data["associationPublished"]
-        self.invocation = data["invocation"]
+        self.associationPublished = int(data["associationPublished"])
+        self.invocation = int(data["invocation"])
         if "timeTaken" in data:
             self.timeTaken = data["timeTaken"]
         if sections:
