@@ -23,12 +23,6 @@ def create_app(config_name):
     app.config.from_pyfile(configInstance.FLASK_CONFIG)
     db.init_app(app)
     CORS(app)
- 
-    if(configInstance.FLASK_LOGGING):
-        with open("loggingConfiguration.json", 'r') as logging_configuration_file:
-            config_dict = json.load(logging_configuration_file)
-
-        logging.config.dictConfig(config_dict)
        
     #questionaire blueprints registration
     from .questionaire.routes.getSeekers import getSeekers as getSeekers_route

@@ -4,5 +4,6 @@ __pycache__/
 venv/
 .env
 logging.log
-*.js
+assessmentEvents.js
 extras.txt
+gunicornConf.py

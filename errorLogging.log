@@ -1,0 +1,69 @@
+[2018-08-09 15:57:23 +0530] [1255] [INFO] Starting gunicorn 19.9.0
+[2018-08-09 15:57:23 +0530] [1255] [INFO] Listening at: http://127.0.0.1:5000 (1255)
+[2018-08-09 15:57:23 +0530] [1255] [INFO] Using worker: sync
+[2018-08-09 15:57:23 +0530] [1258] [INFO] Booting worker with pid: 1258
+[2018-08-09 15:57:23 +0530] [1260] [INFO] Booting worker with pid: 1260
+[2018-08-09 15:57:23 +0530] [1264] [INFO] Booting worker with pid: 1264
+[2018-08-09 15:57:23 +0530] [1266] [INFO] Booting worker with pid: 1266
+[2018-08-09 15:57:23 +0530] [1272] [INFO] Booting worker with pid: 1272
+[2018-08-09 15:57:23 +0530] [1275] [INFO] Booting worker with pid: 1275
+[2018-08-09 15:57:23 +0530] [1284] [INFO] Booting worker with pid: 1284
+[2018-08-09 15:57:23 +0530] [1287] [INFO] Booting worker with pid: 1287
+[2018-08-09 15:57:23 +0530] [1290] [INFO] Booting worker with pid: 1290
+[2018-08-09 15:57:35 +0530] [1255] [INFO] Handling signal: int
+[2018-08-09 15:57:35 +0530] [1260] [INFO] Worker exiting (pid: 1260)
+[2018-08-09 15:57:35 +0530] [1272] [INFO] Worker exiting (pid: 1272)
+[2018-08-09 15:57:35 +0530] [1264] [INFO] Worker exiting (pid: 1264)
+[2018-08-09 15:57:35 +0530] [1266] [INFO] Worker exiting (pid: 1266)
+[2018-08-09 15:57:35 +0530] [1258] [INFO] Worker exiting (pid: 1258)
+[2018-08-09 15:57:35 +0530] [1290] [INFO] Worker exiting (pid: 1290)
+[2018-08-09 15:57:35 +0530] [1275] [INFO] Worker exiting (pid: 1275)
+[2018-08-09 15:57:35 +0530] [1287] [INFO] Worker exiting (pid: 1287)
+[2018-08-09 15:57:35 +0530] [1284] [INFO] Worker exiting (pid: 1284)
+[2018-08-09 15:57:36 +0530] [1255] [INFO] Shutting down: Master
+[2018-08-09 15:57:37 +0530] [1332] [INFO] Starting gunicorn 19.9.0
+[2018-08-09 15:57:37 +0530] [1332] [INFO] Listening at: http://127.0.0.1:5000 (1332)
+[2018-08-09 15:57:37 +0530] [1332] [INFO] Using worker: sync
+[2018-08-09 15:57:37 +0530] [1337] [INFO] Booting worker with pid: 1337
+[2018-08-09 15:57:37 +0530] [1339] [INFO] Booting worker with pid: 1339
+[2018-08-09 15:57:37 +0530] [1342] [INFO] Booting worker with pid: 1342
+[2018-08-09 15:57:37 +0530] [1346] [INFO] Booting worker with pid: 1346
+[2018-08-09 15:57:37 +0530] [1348] [INFO] Booting worker with pid: 1348
+[2018-08-09 15:57:37 +0530] [1360] [INFO] Booting worker with pid: 1360
+[2018-08-09 15:57:37 +0530] [1359] [INFO] Booting worker with pid: 1359
+[2018-08-09 15:57:37 +0530] [1364] [INFO] Booting worker with pid: 1364
+[2018-08-09 15:57:37 +0530] [1369] [INFO] Booting worker with pid: 1369
+[2018-08-09 15:57:51 +0530] [1332] [INFO] Handling signal: int
+[2018-08-09 15:57:51 +0530] [1337] [INFO] Worker exiting (pid: 1337)
+[2018-08-09 15:57:51 +0530] [1348] [INFO] Worker exiting (pid: 1348)
+[2018-08-09 15:57:51 +0530] [1339] [INFO] Worker exiting (pid: 1339)
+[2018-08-09 15:57:51 +0530] [1346] [INFO] Worker exiting (pid: 1346)
+[2018-08-09 15:57:51 +0530] [1360] [INFO] Worker exiting (pid: 1360)
+[2018-08-09 15:57:51 +0530] [1364] [INFO] Worker exiting (pid: 1364)
+[2018-08-09 15:57:51 +0530] [1342] [INFO] Worker exiting (pid: 1342)
+[2018-08-09 15:57:51 +0530] [1359] [INFO] Worker exiting (pid: 1359)
+[2018-08-09 15:57:51 +0530] [1369] [INFO] Worker exiting (pid: 1369)
+[2018-08-09 15:57:51 +0530] [1332] [INFO] Shutting down: Master
+[2018-08-09 18:12:02 +0530] [11514] [INFO] Starting gunicorn 19.9.0
+[2018-08-09 18:12:02 +0530] [11514] [INFO] Listening at: http://127.0.0.1:5000 (11514)
+[2018-08-09 18:12:02 +0530] [11514] [INFO] Using worker: gevent
+[2018-08-09 18:12:02 +0530] [11517] [INFO] Booting worker with pid: 11517
+[2018-08-09 18:12:03 +0530] [11518] [INFO] Booting worker with pid: 11518
+[2018-08-09 18:12:03 +0530] [11519] [INFO] Booting worker with pid: 11519
+[2018-08-09 18:12:03 +0530] [11520] [INFO] Booting worker with pid: 11520
+[2018-08-09 18:12:03 +0530] [11523] [INFO] Booting worker with pid: 11523
+[2018-08-09 18:12:03 +0530] [11525] [INFO] Booting worker with pid: 11525
+[2018-08-09 18:12:03 +0530] [11527] [INFO] Booting worker with pid: 11527
+[2018-08-09 18:12:03 +0530] [11528] [INFO] Booting worker with pid: 11528
+[2018-08-09 18:12:03 +0530] [11529] [INFO] Booting worker with pid: 11529
+[2018-08-09 18:12:49 +0530] [11514] [INFO] Handling signal: int
+[2018-08-09 18:12:49 +0530] [11519] [INFO] Worker exiting (pid: 11519)
+[2018-08-09 18:12:49 +0530] [11518] [INFO] Worker exiting (pid: 11518)
+[2018-08-09 18:12:49 +0530] [11525] [INFO] Worker exiting (pid: 11525)
+[2018-08-09 18:12:49 +0530] [11520] [INFO] Worker exiting (pid: 11520)
+[2018-08-09 18:12:49 +0530] [11527] [INFO] Worker exiting (pid: 11527)
+[2018-08-09 18:12:49 +0530] [11517] [INFO] Worker exiting (pid: 11517)
+[2018-08-09 18:12:49 +0530] [11529] [INFO] Worker exiting (pid: 11529)
+[2018-08-09 18:12:49 +0530] [11523] [INFO] Worker exiting (pid: 11523)
+[2018-08-09 18:12:49 +0530] [11528] [INFO] Worker exiting (pid: 11528)
+[2018-08-09 18:12:49 +0530] [11514] [INFO] Shutting down: Master
