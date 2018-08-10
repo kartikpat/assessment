@@ -7,3 +7,4 @@ logging.log
 assessmentEvents.js
 extras.txt
 gunicornConf.py
+errorLogging.log
