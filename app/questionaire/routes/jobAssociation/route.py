@@ -1,6 +1,6 @@
 from flask import  Flask, abort, jsonify
 from . import jobAssociation
-from ...service.jobAssociation import associate_job_list_with_questionaire, get_associated_job_list_with_questionaire
+from ...service.jobAssociation import associateJobWithQuestionaire, get_associated_job_list_with_questionaire
 from ...model.questionaire import Questionaire
 from .validate import validate
 from ....exception import BadContentType,InvalidObjectId, ValidationError
@@ -30,7 +30,7 @@ def associate_job_with_questionaire(questionaire_id):
 
         validate(data)
          
-        associate_job_with_questionaire(data, questionaire_id)
+        associateJobWithQuestionaire(data, questionaire_id)
 
         return jsonify({
             'status': 'success',
@@ -50,9 +50,14 @@ def associate_job_with_questionaire(questionaire_id):
         message = e.message
         abort(422,{'message': message})  
 
-    except (Question.DoesNotExist, InvalidObjectId) as e:
+    except Questionaire.DoesNotExist as e:
         logger.exception(e)
         message = 'questionaire id doesn\'t exist'
+        abort(404,{'message': message})
+        
+    except InvalidObjectId as e:
+        logger.exception(e)
+        message = 'questionaire id is not valid'
         if hasattr(e, 'message'):
             e.to_dict()
             message = e.message
