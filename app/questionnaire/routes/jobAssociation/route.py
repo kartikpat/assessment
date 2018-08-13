@@ -1,7 +1,7 @@
 from flask import  Flask, abort, jsonify
 from . import jobAssociation
-from ...service.jobAssociation import associateJobWithquestionaire, getAssociatedJobWithQuestionaire
-from ...model.questionaire import Questionaire
+from ...service.jobAssociation import associateJobWithquestionnaire, getAssociatedJobWithQuestionaire
+from ...model.questionnaire import Questionaire
 from .validate import validate
 from ....exception import BadContentType,InvalidObjectId, FormValidationError
 import logging
@@ -9,10 +9,10 @@ from app.utils import get_data_in_dict
 from mongoengine import * 
 logger = logging.getLogger(__name__)
 
-@jobAssociation.route('/questionaire/<questionaire_id>/job', methods=['GET'])
-def fetch_job_associated_with_questionaire(questionaire_id):                
+@jobAssociation.route('/questionnaire/<questionnaire_id>/job', methods=['GET'])
+def fetch_job_associated_with_questionnaire(questionnaire_id):                
     try:
-        data = getAssociatedJobWithQuestionaire(questionaire_id)
+        data = getAssociatedJobWithQuestionaire(questionnaire_id)
 
         return jsonify({
                 'status': 'success',
@@ -24,14 +24,14 @@ def fetch_job_associated_with_questionaire(questionaire_id):
             message = ''
             abort(503,{'message': message})
 
-@jobAssociation.route('/questionaire/<questionaire_id>/job', methods=['POST'])
-def associate_job_with_questionaire(questionaire_id):  
+@jobAssociation.route('/questionnaire/<questionnaire_id>/job', methods=['POST'])
+def associate_job_with_questionnaire(questionnaire_id):  
     try:
         data = get_data_in_dict()  
 
         validate(data)
          
-        associateJobWithquestionaire(data, questionaire_id)
+        associateJobWithquestionnaire(data, questionnaire_id)
 
         return jsonify({
             'status': 'success',
@@ -58,12 +58,12 @@ def associate_job_with_questionaire(questionaire_id):
 
     except Questionaire.DoesNotExist as e:
         logger.exception(e)
-        message = 'questionaire id doesn\'t exist'
+        message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})
         
     except InvalidObjectId as e:
         logger.exception(e)
-        message = 'questionaire id is not valid'
+        message = 'questionnaire id is not valid'
         if hasattr(e, 'message'):
             e.to_dict()
             message = e.message

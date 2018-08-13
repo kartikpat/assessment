@@ -103,7 +103,7 @@ def create_questionResponse():
 
     except QuestionResponse.DoesNotExist as e:
         logger.exception(e)
-        message = 'no question response submitted for this questionaire'
+        message = 'no question response submitted for this questionnaire'
         abort(404,{'message': message})
         
     except InvalidObjectId as e:

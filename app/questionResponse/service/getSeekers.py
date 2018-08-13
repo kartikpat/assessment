@@ -6,15 +6,15 @@ from ...utils import is_valid_object_id, decode_objectId, encode_objectId
 from mongoengine.queryset.visitor import Q
 from ...questions.service.questions import getQuestionReference
 
-def get_seekers(questionaire_id, questions):
-    questionaire_id = decode_objectId(questionaire_id)
-    if not is_valid_object_id(questionaire_id):
-        raise InvalidObjectId('invalid questionaire id')
+def get_seekers(questionnaire_id, questions):
+    questionnaire_id = decode_objectId(questionnaire_id)
+    if not is_valid_object_id(questionnaire_id):
+        raise InvalidObjectId('invalid questionnaire id')
 
     data = []
 
     if not questions:
-        questionResponse = QuestionResponse.objects(questionaireId= questionaire_id).only('seeker');
+        questionResponse = QuestionResponse.objects(questionnaireId= questionnaire_id).only('seeker');
         for aQuestionResponse in questionResponse:
             data.append(aQuestionResponse.seeker) 
 
@@ -31,7 +31,7 @@ def get_seekers(questionaire_id, questions):
             for innerIndex, anAnswer in enumerate(aQuestion["answer"]):
                 temp = []
                 pipeline = [
-                            {"$match": {"questionaireId": questionaire_id }},
+                            {"$match": {"questionnaireId": questionnaire_id }},
                             {"$project":{
                                 "sections":{
                                     "$filter":{
@@ -74,7 +74,7 @@ def get_seekers(questionaire_id, questions):
 
         elif(type == 2 or type == 3):   
             pipeline = [
-                        {"$match": {"questionaireId": questionaire_id }},
+                        {"$match": {"questionnaireId": questionnaire_id }},
                         {"$project":{
                             "sections":{
                                 "$filter":{
@@ -112,13 +112,13 @@ def get_seekers(questionaire_id, questions):
 
         elif(type == 4 or type == 5): 
             if((0 in aQuestion["answer"]) and (1 in aQuestion["answer"])):
-                questionResponse = QuestionResponse.objects(questionaireId= questionaire_id).only('seeker');
+                questionResponse = QuestionResponse.objects(questionnaireId= questionnaire_id).only('seeker');
                 for aQuestionResponse in questionResponse:
                     matchingSeekers.append(aQuestionResponse.seeker) 
 
             else:    
                 pipeline = [
-                            {"$match": {"questionaireId": questionaire_id }},
+                            {"$match": {"questionnaireId": questionnaire_id }},
                             {"$project":{
                                 "sections":{
                                     "$filter":{

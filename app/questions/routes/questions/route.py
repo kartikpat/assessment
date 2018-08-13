@@ -10,7 +10,7 @@ from mongoengine import *
 logger = logging.getLogger(__name__)
 
 @questions.route('/question', methods=['GET'])
-def fetchQuestions():                
+def fetchQuestions():                 
     try:
 
         parameters = {}

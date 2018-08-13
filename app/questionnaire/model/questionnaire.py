@@ -3,11 +3,11 @@ from extras_mongoengine.fields import IntEnumField
 import datetime
 from ..enumerations import AuthorType, QuestionaireStatus
 from ...enumerations import Invocation 
-from ..constants import questionaireViewType, questionaireSectionType
+from ..constants import questionnaireViewType, questionnaireSectionType
 from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId , decode_objectId
 
 class QuestionaireProperty(EmbeddedDocument):
-    viewType = StringField(db_field='viewType', choices=questionaireViewType)
+    viewType = StringField(db_field='viewType', choices=questionnaireViewType)
     showAnswers = BooleanField(db_field='showAnswers')
     durationInMin = IntField(db_field='durationInMin', min_value = 0)
     blockWindow = BooleanField(db_field='blockWindow')
@@ -46,7 +46,7 @@ class QuestionaireProperty(EmbeddedDocument):
 class QuestionaireSection(EmbeddedDocument):
     id = IntField(db_field='id', min_value=0, required=True)
     heading = StringField(db_field='heading')
-    type = StringField(db_field='type',required= True, choices=questionaireSectionType)
+    type = StringField(db_field='type',required= True, choices=questionnaireSectionType)
     noOfQuestion = IntField(min_value=0, db_field='noOfQuestion')
     skillTags = ListField(LongField(min_value=0),db_field='skillTags', default=None)
     questionIds = ListField(ObjectIdField(),db_field='questionIds', default=None)

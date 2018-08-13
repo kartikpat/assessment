@@ -1,7 +1,7 @@
 from flask import  Flask, abort, jsonify
 from . import questionAssociationWithQuestionaire
-from ...service.questionAssociation import associate_question_with_questionaire
-from ...model.questionaire import Questionaire
+from ...service.questionAssociation import associate_question_with_questionnaire
+from ...model.questionnaire import Questionaire
 from .validate import validate
 from ....exception import BadContentType,InvalidObjectId, FormValidationError
 import logging
@@ -9,14 +9,14 @@ from app.utils import get_data_in_dict
 from mongoengine import * 
 logger = logging.getLogger(__name__)
 
-@questionAssociationWithQuestionaire.route('/questionaire/<questionaire_id>/section/<section_id>/question', methods=['POST'])
-def associateQuestionWithQuestionaire(questionaire_id, section_id):                
+@questionAssociationWithQuestionaire.route('/questionnaire/<questionnaire_id>/section/<section_id>/question', methods=['POST'])
+def associateQuestionWithQuestionaire(questionnaire_id, section_id):                
     try:
         data = get_data_in_dict()  
 
         validate(data)
          
-        associate_question_with_questionaire(data, questionaire_id, section_id)
+        associate_question_with_questionnaire(data, questionnaire_id, section_id)
 
         return jsonify({
             'status': 'success',
@@ -38,12 +38,12 @@ def associateQuestionWithQuestionaire(questionaire_id, section_id):
 
     except Questionaire.DoesNotExist as e:
         logger.exception(e)
-        message = 'questionaire id doesn\'t exist'
+        message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})
         
     except InvalidObjectId as e:
         logger.exception(e)
-        message = 'questionaire id is not valid'
+        message = 'questionnaire id is not valid'
         if hasattr(e, 'message'):
             e.to_dict()
             message = e.message

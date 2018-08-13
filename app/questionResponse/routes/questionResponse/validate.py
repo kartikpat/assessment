@@ -10,7 +10,7 @@ class QuestionResponseSectionForm(Form):
 
 class QuestionResponseInsertForm(Form):
     sections = ListField('sections', [_validateListLength])
-    questionaireId = Field('questionaire id', [validators.InputRequired()])
+    questionnaireId = Field('questionnaire id', [validators.InputRequired()])
     invocation = IntegerField('stage at which test to be held',[validators.InputRequired(), ifValueInEnum(Invocation)])
     seeker = IntegerField('job seeker id',[validators.InputRequired()]) 
     timeTaken = IntegerField('total time taken',[validators.optional()])  

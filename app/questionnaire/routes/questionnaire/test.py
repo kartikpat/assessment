@@ -6,13 +6,13 @@ from app import create_app
 import datetime
 
 class QuestionaireTestCase(unittest.TestCase):
-    """This class represents the questionaire test case"""
+    """This class represents the questionnaire test case"""
 
     def setUp(self):
         """Define test variables and initialize app."""
         self.app = create_app(config_name='testing')
         self.client = self.app.test_client
-        self.questionaire = {
+        self.questionnaire = {
                 "name": "test driven title",
                 "status": 1,
                 "type": 1,
@@ -28,21 +28,21 @@ class QuestionaireTestCase(unittest.TestCase):
                 "instruction": "test driven instruction"
             } 
 
-    def test_questionaire_creation(self):
-        """Test API can create a questionaire (POST request)"""
-        res = self.client().post('/questionaire', data=self.questionaire)
+    def test_questionnaire_creation(self):
+        """Test API can create a questionnaire (POST request)"""
+        res = self.client().post('/questionnaire', data=self.questionnaire)
         self.assertEqual(res.status_code, 200)
         self.assertIn('success', str(res.data))
 
-    # def test_api_can_get_all_questionaire(self):
+    # def test_api_can_get_all_questionnaire(self):
     #     """Test API can get a bucketlist (GET request)."""
-    #     res = self.client().post('/questionaire', data=self.questionaire)
+    #     res = self.client().post('/questionnaire', data=self.questionnaire)
     #     self.assertEqual(res.status_code, 201)
     #     res = self.client().get('/bucketlists/')
     #     self.assertEqual(res.status_code, 200)
     #     self.assertIn('Go to Borabora', str(res.data))
 
-    # def test_api_can_get_questionaire_by_id(self):
+    # def test_api_can_get_questionnaire_by_id(self):
     #     """Test API can get a single bucketlist by using it's id."""
     #     rv = self.client().post('/bucketlists/', data=self.bucketlist)
     #     self.assertEqual(rv.status_code, 201)
