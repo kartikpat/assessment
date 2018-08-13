@@ -3,11 +3,11 @@ from extras_mongoengine.fields import IntEnumField
 import datetime
 from ..enumerations import AuthorType, QuestionaireStatus
 from ...enumerations import Invocation 
-from ..constants import questionaireViewType, questionaireSectionType
-from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId 
+from ..constants import questionnaireViewType, questionnaireSectionType
+from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId , decode_objectId
 
 class QuestionaireProperty(EmbeddedDocument):
-    viewType = StringField(db_field='viewType', choices=questionaireViewType)
+    viewType = StringField(db_field='viewType', choices=questionnaireViewType)
     showAnswers = BooleanField(db_field='showAnswers')
     durationInMin = IntField(db_field='durationInMin', min_value = 0)
     blockWindow = BooleanField(db_field='blockWindow')
@@ -46,20 +46,21 @@ class QuestionaireProperty(EmbeddedDocument):
 class QuestionaireSection(EmbeddedDocument):
     id = IntField(db_field='id', min_value=0, required=True)
     heading = StringField(db_field='heading')
-    type = StringField(db_field='type',required= True, choices=questionaireSectionType)
+    type = StringField(db_field='type',required= True, choices=questionnaireSectionType)
     noOfQuestion = IntField(min_value=0, db_field='noOfQuestion')
     skillTags = ListField(LongField(min_value=0),db_field='skillTags', default=None)
     questionIds = ListField(ObjectIdField(),db_field='questionIds', default=None)
 
     def set_data(self, data, s_id):
-        self.id = s_id
+        self.id = int(s_id)
         if "heading" in data:
             self.heading = data["heading"]
         self.type = data["type"]
         if data["type"] == "static":
+            data["questionIds"] = list(map(decode_objectId, data["questionIds"]))
             self.questionIds = data["questionIds"]
         elif data["type"] == "dynamic":
-            self.noOfQuestion = data["noOfQuestion"]
+            self.noOfQuestion = int(data["noOfQuestion"])
             self.skillTags = data["skillTags"]
          
     def update_data(self, data):
@@ -67,6 +68,7 @@ class QuestionaireSection(EmbeddedDocument):
             self.heading = data["heading"]
  
         if data["type"] == "static":
+            data["questionIds"] = list(map(decode_objectId, data["questionIds"]))
             self.questionIds = data["questionIds"]
         
         elif data["type"] == "dynamic":
@@ -120,12 +122,13 @@ class Questionaire(Document):
     def set_data(self, data, q_property, q_sections):
         if "name" in data:
             self.name = data["name"]
-        self.authorType = data["authorType"]
+        self.authorType = int(data["authorType"])
         self.author = data["author"]  
-        self.associationMeta = data["associationMeta"]      
-        self.invocation = data["invocation"]  
+        self.invocation = int(data["invocation"])  
+        if "associationMeta" in data:
+            self.associationMeta = int(data["associationMeta"])
         if "associationPublished" in data:
-            self.associationPublished = data["associationPublished"]
+            self.associationPublished = int(data["associationPublished"])
         if "description" in data:
             self.description = data["description"]        
         if "instruction" in data:

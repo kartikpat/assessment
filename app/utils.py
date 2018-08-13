@@ -1,7 +1,7 @@
 import time
 from flask import request
 from werkzeug.datastructures import MultiDict
-from .exception import BadContentType, ValidationError
+from .exception import BadContentType, FormValidationError
 from bson import ObjectId
 import bson
 import dateutil.parser as parser
@@ -39,7 +39,7 @@ def get_data_in_dict():
 
 def isIntInstance(form,field):
     if not isinstance(field.data, int):
-        raise ValidationError(field.name + " : " + "only int values are accepted")  
+        raise FormValidationError(field.name + " : " + "only int values are accepted")  
 
 def ifValueInTuple(tuple_name, message=None):
     if not message:
@@ -47,7 +47,7 @@ def ifValueInTuple(tuple_name, message=None):
     def _ifValueInTuple(form, field):
         value = field.data
         if not value in tuple_name:
-            raise ValidationError(field.name + " : " + message)
+            raise FormValidationError(field.name + " : " + message)
 
     return _ifValueInTuple            
 
@@ -57,7 +57,7 @@ def ifValueInEnum(enum_name, message=None):
     def _ifValueInEnum(form, field):
         value = field.data
         if not any(value == item.value for item in enum_name):
-            raise ValidationError(field.name + " : " + message)
+            raise FormValidationError(field.name + " : " + message)
 
     return _ifValueInEnum
 
@@ -65,14 +65,13 @@ def keyRequired(key, message=None):
     if not message:
         message = key + 'is required'
     def _keyRequired(form, field):
-        print(field.name)
-        raise ValidationError(message)
+        raise FormValidationError(message)
 
     return _keyRequired    
 
 def isBooleanInstance(form, field):
     if not field.data in (True,False,0,1):
-        raise ValidationError(field.name + " : " + "only boolean values are accepted")
+        raise FormValidationError(field.name + " : " + "only boolean values are accepted")
 
 def getBooleanValue(val):
     return bool(val) 
@@ -89,12 +88,12 @@ def _validateListLength(form, field):
 
 def validateListLength(list_data, list_name):
     if len(list_data) == 0:
-        raise ValidationError(list_name + ' list can\'t be empty') 
+        raise FormValidationError(list_name + ' list can\'t be empty') 
 
 def minListLength(list_data, list_name, length):
     print(list_data)
     if len(list_data) < length:
-        raise ValidationError('atleast two values required of' + list_name )                
+        raise FormValidationError('atleast two values required of' + list_name )                
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -105,7 +104,7 @@ def formValidate(form_name, data):
     form_name = form_name(mdict_data)
     if not form_name.validate():
         for fieldName, errorMessage in form_name.errors.items():
-            raise ValidationError(''+fieldName+' : '+errorMessage[0]+'')
+            raise FormValidationError(''+fieldName+' : '+errorMessage[0]+'')
 
 def decode_objectId(value):
     return ObjectId(base64_decode(value))

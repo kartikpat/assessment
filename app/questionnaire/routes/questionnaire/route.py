@@ -1,14 +1,15 @@
 from flask import  Flask,abort,jsonify, request
-from . import questionaire
-from ...service.questionaire import insert_questionaire, update_questionaire, get_questionaire, get_questionaire_by_id, questionaire_exist
-from ...model.questionaire import Questionaire
-from .validate import validate
-from ....exception import BadContentType,InvalidObjectId, ValidationError, MissingGetParameters
+from . import questionnaire
+from ...service.questionnaire import insert_questionnaire, update_questionnaire, get_questionnaire, get_questionnaire_by_id, questionnaire_exist
+from ...model.questionnaire import Questionaire
+from .validate import validate 
+from ....exception import BadContentType,InvalidObjectId, FormValidationError, MissingGetParameters
 import logging
 from ....utils import get_data_in_dict, encode_objectId
+from mongoengine import *
 logger = logging.getLogger(__name__)
 
-@questionaire.route('/questionaire', methods=['GET'])
+@questionnaire.route('/questionnaire', methods=['GET'])
 def fetchQuestionaire():                 
     try:
  
@@ -24,7 +25,7 @@ def fetchQuestionaire():
         if not parameters["association"]:
             raise MissingGetParameters('association parameter is required')    
 
-        data = get_questionaire(parameters)
+        data = get_questionnaire(parameters)
 
         return jsonify({
                 'status': 'success',
@@ -44,33 +45,33 @@ def fetchQuestionaire():
             message = ''
             abort(503,{'message': message})
 
-@questionaire.route('/questionaire', methods=['POST'])
-def create_questionaire():  
+@questionnaire.route('/questionnaire', methods=['POST'])
+def create_questionnaire():  
     try:
         data = get_data_in_dict()  
 
-        questionaire_id = None
+        questionnaire_id = None
 
         if "associationMeta" in data and "invocation" in data:
-            questionaire_id = questionaire_exist(data)
+            questionnaire_id = questionnaire_exist(data)
 
-        if questionaire_id:
-            questionaire_id = encode_objectId(questionaire_id)
+        if questionnaire_id:
+            questionnaire_id = encode_objectId(questionnaire_id)
             return jsonify({
                 'status': 'success',
-                'message': 'questionaire already associated with job',
-                'data': questionaire_id
+                'message': 'questionnaire already associated with job',
+                'data': questionnaire_id
             })
         
         validate(data, "insert") 
-        questionaire_id = insert_questionaire(data)
+        questionnaire_id = insert_questionnaire(data)
 
-        questionaire_id = encode_objectId(questionaire_id)
+        questionnaire_id = encode_objectId(questionnaire_id)
 
         return jsonify({
             'status': 'success',
-            'message': 'questionaire created successfully',
-            'data': questionaire_id
+            'message': 'questionnaire created successfully',
+            'data': questionnaire_id
         })   
 
     except KeyError as e:
@@ -86,7 +87,7 @@ def create_questionaire():
             message = e.message
         abort(400,{'message': message}) 
 
-    except ValidationError as e: 
+    except (FormValidationError, ValidationError) as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message}) 
@@ -97,22 +98,22 @@ def create_questionaire():
         abort(503,{'message': message})        
 
 
-@questionaire.route('/questionaire/<questionaire_id>', methods=['POST'])
-def updateQuestionaire(questionaire_id):
+@questionnaire.route('/questionnaire/<questionnaire_id>', methods=['POST'])
+def updateQuestionaire(questionnaire_id):
     try:
         
         data = get_data_in_dict()
         
         validate(data, "update")
         
-        update_questionaire(data, questionaire_id)
+        update_questionnaire(data, questionnaire_id)
         
         return jsonify({
             'status': 'success',
-            'message': 'questionaire updated successfully'
+            'message': 'questionnaire updated successfully'
         })
 
-    except ValidationError as e: 
+    except (FormValidationError, ValidationError) as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message})     
@@ -124,12 +125,12 @@ def updateQuestionaire(questionaire_id):
 
     except Questionaire.DoesNotExist as e:
         logger.exception(e)
-        message = 'questionaire id doesn\'t exist'
+        message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})
         
     except InvalidObjectId as e:
         logger.exception(e)
-        message = 'questionaire id is not valid'
+        message = 'questionnaire id is not valid'
         if hasattr(e, 'message'):
             e.to_dict()
             message = e.message
@@ -140,10 +141,10 @@ def updateQuestionaire(questionaire_id):
         message = ''
         abort(503,{'message': message})            
 
-@questionaire.route('/questionaire/<questionaire_id>', methods=['GET'])
-def fetch_questionaire(questionaire_id):
+@questionnaire.route('/questionnaire/<questionnaire_id>', methods=['GET'])
+def fetch_questionnaire(questionnaire_id):
     try:
-        data = get_questionaire_by_id(questionaire_id)
+        data = get_questionnaire_by_id(questionnaire_id)
 
         return jsonify({
                 'status': 'success',
@@ -152,12 +153,12 @@ def fetch_questionaire(questionaire_id):
 
     except Questionaire.DoesNotExist as e:
         logger.exception(e)
-        message = 'questionaire id doesn\'t exist'
+        message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})
         
     except InvalidObjectId as e:
         logger.exception(e)
-        message = 'questionaire id is not valid'
+        message = 'questionnaire id is not valid'
         if hasattr(e, 'message'):
             e.to_dict()
             message = e.message

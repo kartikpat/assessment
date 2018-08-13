@@ -3,8 +3,8 @@ instance/
 __pycache__/
 venv/
 .env
-*.js
+logging.log
+assessmentEvents.js
 extras.txt
 gunicornConf.py
-logging.log
-loggingConfiguration.json
+errorLogging.log

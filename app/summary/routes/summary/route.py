@@ -3,7 +3,7 @@ from . import summary
 from ...service.summary import insert_summary, update_summary, get_summary_list, get_summary
 from ...model.summary import Summary
 from .validate import validate
-from ....exception import BadContentType,InvalidObjectId, ValidationError, EmbeddedDocumentNotFound
+from ....exception import BadContentType,InvalidObjectId, FormValidationError, EmbeddedDocumentNotFound
 import logging
 from ....utils import get_data_in_dict
 logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ def create_summary():
             message = e.message
         abort(400,{'message': message}) 
 
-    except ValidationError as e: 
+    except FormValidationError as e: 
         logger.exception(e)
         message = e.message
         abort(422,{'message': message}) 

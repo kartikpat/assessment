@@ -1,11 +1,10 @@
 from wtforms import Form, BooleanField, StringField, validators, IntegerField, SelectField, Field
-from ....exception import ValidationError
 from ....utils import formValidate, ifValueInEnum,ListField, _validateListLength
 from ...constants import *
 from ...enumerations import * 
 
 class SummaryInsertForm(Form):
-    questionaireId = Field('questionaire id', [validators.InputRequired()])
+    questionnaireId = Field('questionnaire id', [validators.InputRequired()])
     seekerId = IntegerField('question',[validators.InputRequired()])
     assessedOn = Field('assessedOn',[validators.InputRequired()]) 
     corrects = IntegerField('number of correct answers',[validators.optional(), validators.NumberRange(min=0)])

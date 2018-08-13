@@ -1,10 +1,12 @@
 from app.questionResponse.model.questionResponse import QuestionResponse, QuestionDetail, QuestionResponseSection
+from app.questionnaire.model.questionnaire import Questionaire
 from bson import ObjectId
 import bson
-from ...exception import InvalidObjectId
+from ...exception import InvalidObjectId, EntityNotExists
 from ...utils import is_valid_object_id, decode_objectId, encode_objectId
 from mongoengine.queryset.visitor import Q
-from ...questions.service.questions import get_question_by_id
+import app.questions.service as question_service_module
+import app.questionnaire.service as questionnaire_service_module 
 
 def questionResponse_exist(data):
     questionResponse = QuestionResponse.objects(Q(associationPublished=data["associationPublished"]) & Q(invocation=int(data["invocation"])) & Q(seeker=int(data["seeker"]))).only('id').first()
@@ -12,7 +14,8 @@ def questionResponse_exist(data):
        return questionResponse.id
 
 def getQuestionResponse(data, seeker, associationPublished,invocation, questionId, sectionId):
-    pipeline = [
+    if(invocation):
+        pipeline = [
                 {"$match": {"associationPublished": int(associationPublished), "invocation": int(invocation), "seeker": int(seeker)}},
                 {"$project": {"sections":1, "_id":0}},
                 {"$unwind": "$sections"},
@@ -23,6 +26,18 @@ def getQuestionResponse(data, seeker, associationPublished,invocation, questionI
                 {"$project": {"sections.questions.answer": 1}}
                ]
 
+    else:
+        pipeline = [
+                    {"$match": {"associationPublished": int(associationPublished), "seeker": int(seeker)}},
+                    {"$project": {"sections":1, "_id":0}},
+                    {"$unwind": "$sections"},
+                    {"$match": {"sections.id": sectionId}},
+                    {"$project": {"sections.questions":1}},
+                    {"$unwind": "$sections.questions"},
+                    {"$match": {"sections.questions.id": questionId}},
+                    {"$project": {"sections.questions.answer": 1}}
+                   ]
+
     questionResponse = QuestionResponse.objects.aggregate(*pipeline)
     for aQuestionResponse in questionResponse:
         data["answer"] = aQuestionResponse["sections"]["questions"]["answer"];
@@ -30,6 +45,15 @@ def getQuestionResponse(data, seeker, associationPublished,invocation, questionI
     return data    
 
 def insert_questionResponse(data):
+    questionnaireExistParameters = {
+        "associationPublished": data["associationPublished"],
+        "invocation": data["invocation"]
+    }
+
+    questionnaireId = questionnaire_service_module.questionnaire.questionnaire_exist(questionnaireExistParameters);
+
+    if not questionnaireId:
+        raise EntityNotExists('no questionnaire is associated with the job')   
 
     sections = createQuestionResponseSections(data)
 
@@ -108,7 +132,6 @@ def createQuestionDetails(data):
         for index, question in enumerate(data["questions"]):
             questionDetail = QuestionDetail()
             questionDetail.set_data(question)
-            print(questionDetail)
             questions.append(questionDetail)
 
     return questions
@@ -120,7 +143,6 @@ def createQuestionResponseSections(data):
 
         for index, aSection in enumerate(data["sections"]):
             questions = createQuestionDetails(aSection)
-            
             questionResponseSection = QuestionResponseSection()
             questionResponseSection.set_data(aSection, questions)
             sections.append(questionResponseSection)
@@ -134,7 +156,7 @@ def getQuestionsData(questionResponseSection, data):
         for question in questionResponseSection.questions:
             aQuestion = {}
             aQuestion, questionId = question.get_data(aQuestion)
-            aQuestion = get_question_by_id(questionId, aQuestion); 
+            aQuestion = question_service_module.questions.get_question_by_id(questionId, aQuestion); 
             data["questions"].append(aQuestion)
 
         return data  

@@ -26,7 +26,7 @@ class QuestionResponseSection(EmbeddedDocument):
     questions = EmbeddedDocumentListField(QuestionDetail, db_field='questions')   
 
     def set_data(self, data, questions): 
-        self.id = data["id"]
+        self.id = int(data["id"])
         if questions:
             self.questions = questions                                       
         
@@ -36,10 +36,10 @@ class QuestionResponseSection(EmbeddedDocument):
 
 class QuestionResponse(Document):
     sections = EmbeddedDocumentListField(QuestionResponseSection, db_field='sections')
-    questionaireId = ObjectIdField(db_field='questionaireId',required=True)
+    questionnaireId = ObjectIdField(db_field='questionnaireId',required=True)
     seeker = LongField(db_field='seeker', min_value=1, required = True)
     associationPublished = LongField(db_field='associationPublished', required=True)
-    assessedOn = DateTimeField(db_field='assessedOn', required=True)
+    assessedOn = DateTimeField(db_field='assessedOn',default=datetime.datetime.utcnow, required=True)
     invocation = IntEnumField(Invocation, db_field='invocation', required=True)
     timeTaken = IntField(db_field='timeTaken')
 
@@ -53,11 +53,12 @@ class QuestionResponse(Document):
     }
     
     def set_data(self, data, sections):
-        self.questionaireId = decode_objectId(data["questionaireId"])
-        self.seeker = data["seeker"]
-        self.assessedOn = data["assessedOn"]
-        self.associationPublished = data["associationPublished"]
-        self.invocation = data["invocation"]
+        self.questionnaireId = decode_objectId(data["questionnaireId"])
+        self.seeker = int(data["seeker"])
+        if "assessedOn" in data:
+            self.assessedOn = data["assessedOn"]
+        self.associationPublished = int(data["associationPublished"])
+        self.invocation = int(data["invocation"])
         if "timeTaken" in data:
             self.timeTaken = data["timeTaken"]
         if sections:
@@ -65,7 +66,7 @@ class QuestionResponse(Document):
         
     def get_data(self, data):
         data["id"] = encode_objectId(self.id)
-        data["questionaireId"] = encode_objectId(self.questionaireId)
+        data["questionnaireId"] = encode_objectId(self.questionnaireId)
         data["seeker"] = self.seeker
         data["assessedOn"] = getDateInIsoFormat(self.assessedOn)
         data["associationPublished"] = self.associationPublished

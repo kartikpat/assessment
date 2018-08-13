@@ -23,27 +23,21 @@ def create_app(config_name):
     app.config.from_pyfile(configInstance.FLASK_CONFIG)
     db.init_app(app)
     CORS(app)
-
-    if(configInstance.FLASK_LOGGING):
-        with open("loggingConfiguration.json", 'r') as logging_configuration_file:
-            config_dict = json.load(logging_configuration_file)
-
-        logging.config.dictConfig(config_dict)
        
-    #questionaire blueprints registration
-    from .questionaire.routes.getSeekers import getSeekers as getSeekers_route
+    #questionnaire blueprints registration
+    from .questionnaire.routes.getSeekers import getSeekers as getSeekers_route
     app.register_blueprint(getSeekers_route, url_prefix=configInstance.FLASK_API_VERSION)
 
-    from .questionaire.routes.jobAssociation import jobAssociation as jobAssociation_route
+    from .questionnaire.routes.jobAssociation import jobAssociation as jobAssociation_route
     app.register_blueprint(jobAssociation_route, url_prefix=configInstance.FLASK_API_VERSION)
 
-    from .questionaire.routes.questionaire import questionaire as questionaire_route
-    app.register_blueprint(questionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
+    from .questionnaire.routes.questionnaire import questionnaire as questionnaire_route
+    app.register_blueprint(questionnaire_route, url_prefix=configInstance.FLASK_API_VERSION)
 
-    from .questionaire.routes.tagAssociation import tagAssociationWithQuestionaire as tagAssociationWithQuestionaire_route
+    from .questionnaire.routes.tagAssociation import tagAssociationWithQuestionaire as tagAssociationWithQuestionaire_route
     app.register_blueprint(tagAssociationWithQuestionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
 
-    from .questionaire.routes.questionAssociation import questionAssociationWithQuestionaire as questionAssociationWithQuestionaire_route
+    from .questionnaire.routes.questionAssociation import questionAssociationWithQuestionaire as questionAssociationWithQuestionaire_route
     app.register_blueprint(questionAssociationWithQuestionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
 
     #questions blueprints registration

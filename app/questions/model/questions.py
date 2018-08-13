@@ -7,7 +7,7 @@ from ..constants import *
 from ...utils import getDateInIsoFormat, encode_objectId
 
 class Question(Document): 
-    question = StringField(db_field='question',required=True, unique=True)
+    question = StringField(db_field='question',required=True)
     type = IntEnumField(QuestionType, db_field='type', required = True, default=QuestionType.MULTI)
     answerOptions = ListField(DynamicField(), db_field='answerOptions', default=None)
     answer = IntField(db_field='answer', min_value=0)
@@ -28,7 +28,7 @@ class Question(Document):
             self.answerOptions = data["answerOptions"] 
         if "answer" in data:       
             self.answer = data["answer"]
-        self.author = data["author"]
+        self.author = int(data["author"])
         if "skillTags" in data:
             self.skillTags = data["skillTags"]
         if "origin" in data:
