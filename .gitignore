@@ -6,3 +6,5 @@ venv/
 *.js
 extras.txt
 gunicornConf.py
+logging.log
+loggingConfiguration.json
