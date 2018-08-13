@@ -5,3 +5,4 @@ venv/
 .env
 *.js
 extras.txt
+gunicornConf.py
