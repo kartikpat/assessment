@@ -113,9 +113,11 @@ def getSectionData(questionnaire, data, parameters):
                 for questionId in questionIds:
                     aQuestion = question_service_module.questions.get_question_by_id(encode_objectId(questionId), {});
                     
-                    if parameters["seeker"]:
+                    if parameters["seeker"] and parameters["invocation"]:
                         aQuestion = questionResponse_service_module.questionResponse.getQuestionResponse(aQuestion, parameters["seeker"], parameters["associationPublished"],parameters["invocation"] ,questionId, questionnaire_section["id"])
-                    
+                    if parameters["seeker"]:
+                        aQuestion = questionResponse_service_module.questionResponse.getQuestionResponse(aQuestion, parameters["seeker"], parameters["associationPublished"],None ,questionId, questionnaire_section["id"])
+
                     questionnaire_section["questions"].append(aQuestion);
             
             elif questionnaire_section["type"] == "dynamic":

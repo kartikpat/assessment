@@ -9,15 +9,16 @@ from .validate import validate
 from mongoengine import * 
 logger = logging.getLogger(__name__)
 
-@getSeekers.route('/questionnaire/<questionnaire_id>/seekers', methods=['POST'])
-def fetch_seekers_with_given_reponses(questionnaire_id):                
+@getSeekers.route('/questionnaire/seekers', methods=['POST'])
+def fetch_seekers_with_given_reponses():                
     try:
 
         data = get_data_in_dict()  
 
         validate(data)
-
-        seekers = get_seekers(questionnaire_id, data["questions"])
+        
+        for index, section in enumerate(data["questionnaire"]):
+            seekers = get_seekers(data["associationPublished"], section["questions"], section["invocation"])
 
         return jsonify({
                 'status': 'success',

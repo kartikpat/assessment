@@ -6,15 +6,11 @@ from ...utils import is_valid_object_id, decode_objectId, encode_objectId
 from mongoengine.queryset.visitor import Q
 from ...questions.service.questions import getQuestionReference
 
-def get_seekers(questionnaire_id, questions):
-    questionnaire_id = decode_objectId(questionnaire_id)
-    if not is_valid_object_id(questionnaire_id):
-        raise InvalidObjectId('invalid questionnaire id')
-
+def get_seekers(associationPublished, questions, invocation):
     data = []
-
     if not questions:
-        questionResponse = QuestionResponse.objects(questionnaireId= questionnaire_id).only('seeker');
+        questionResponse = QuestionResponse.objects(Q(associationPublished=int(associationPublished)) & Q(invocation=int(invocation))).only('seeker');
+
         for aQuestionResponse in questionResponse:
             data.append(aQuestionResponse.seeker) 
 
@@ -27,11 +23,10 @@ def get_seekers(questionnaire_id, questions):
         if index > 0 and not data:
             return data
         if(type == 1):  
-            
             for innerIndex, anAnswer in enumerate(aQuestion["answer"]):
                 temp = []
                 pipeline = [
-                            {"$match": {"questionnaireId": questionnaire_id }},
+                            {"$match": {"associationPublished": int(associationPublished), "invocation": int(invocation) }},
                             {"$project":{
                                 "sections":{
                                     "$filter":{
@@ -58,7 +53,7 @@ def get_seekers(questionnaire_id, questions):
                                     }
                                 }, "_id":0, "seeker":1
                             }}
-                           ]
+                           ]              
 
         
                 questionResponse = QuestionResponse.objects.aggregate(*pipeline)
@@ -74,7 +69,7 @@ def get_seekers(questionnaire_id, questions):
 
         elif(type == 2 or type == 3):   
             pipeline = [
-                        {"$match": {"questionnaireId": questionnaire_id }},
+                        {"$match": {"associationPublished": int(associationPublished), "invocation": int(invocation) }},
                         {"$project":{
                             "sections":{
                                 "$filter":{
@@ -112,13 +107,13 @@ def get_seekers(questionnaire_id, questions):
 
         elif(type == 4 or type == 5): 
             if((0 in aQuestion["answer"]) and (1 in aQuestion["answer"])):
-                questionResponse = QuestionResponse.objects(questionnaireId= questionnaire_id).only('seeker');
+                questionResponse = QuestionResponse.objects(Q(associationPublished=int(associationPublished)) & Q(invocation=int(invocation))).only('seeker');
                 for aQuestionResponse in questionResponse:
                     matchingSeekers.append(aQuestionResponse.seeker) 
 
             else:    
                 pipeline = [
-                            {"$match": {"questionnaireId": questionnaire_id }},
+                            {"$match": {"associationPublished": int(associationPublished), "invocation": int(invocation) }},
                             {"$project":{
                                 "sections":{
                                     "$filter":{

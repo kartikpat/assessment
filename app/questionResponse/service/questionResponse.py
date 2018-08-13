@@ -14,7 +14,8 @@ def questionResponse_exist(data):
        return questionResponse.id
 
 def getQuestionResponse(data, seeker, associationPublished,invocation, questionId, sectionId):
-    pipeline = [
+    if(invocation):
+        pipeline = [
                 {"$match": {"associationPublished": int(associationPublished), "invocation": int(invocation), "seeker": int(seeker)}},
                 {"$project": {"sections":1, "_id":0}},
                 {"$unwind": "$sections"},
@@ -24,6 +25,18 @@ def getQuestionResponse(data, seeker, associationPublished,invocation, questionI
                 {"$match": {"sections.questions.id": questionId}},
                 {"$project": {"sections.questions.answer": 1}}
                ]
+
+    else:
+        pipeline = [
+                    {"$match": {"associationPublished": int(associationPublished), "seeker": int(seeker)}},
+                    {"$project": {"sections":1, "_id":0}},
+                    {"$unwind": "$sections"},
+                    {"$match": {"sections.id": sectionId}},
+                    {"$project": {"sections.questions":1}},
+                    {"$unwind": "$sections.questions"},
+                    {"$match": {"sections.questions.id": questionId}},
+                    {"$project": {"sections.questions.answer": 1}}
+                   ]
 
     questionResponse = QuestionResponse.objects.aggregate(*pipeline)
     for aQuestionResponse in questionResponse:

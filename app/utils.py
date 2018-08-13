@@ -65,7 +65,6 @@ def keyRequired(key, message=None):
     if not message:
         message = key + 'is required'
     def _keyRequired(form, field):
-        print(field.name)
         raise FormValidationError(message)
 
     return _keyRequired    
