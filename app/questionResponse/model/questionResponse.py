@@ -50,8 +50,7 @@ class QuestionResponse(Document):
                 'unique': True 
             },
             {
-                'fields': ['associationPublished', 'invocation'],
-                'unique': True 
+                'fields': ['associationPublished', 'invocation'] 
             }
         ]
     }
