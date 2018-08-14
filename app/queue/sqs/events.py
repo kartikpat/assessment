@@ -15,13 +15,13 @@ try:
 
 	responseBody = json.loads(message['Body'])
 	
-	if(responseBody["event"] == "post job"):
+	if(responseBody["event"] == "post"):
 		data = {}
 		data["associationMeta"] = responseBody["metaId"]
 		for index, questionaireId in enumerate(responseBody["questionaire"]):
 			associateJobWithQuestionnaire(data, questionaireId)
 
-	elif(responseBody["event"] == "publish job"):
+	elif(responseBody["event"] == "publish"):
 		associatePublishWithMeta(responseBody["publishId"], responseBody["metaId"])
 	else:
 		updateMetaAndPublishAssociation(responseBody)		

@@ -109,12 +109,10 @@ class Questionnaire(Document):
     meta = {
         'indexes': [
             {
-                'fields': ['associationMeta', 'invocation'],
-                'unique': True 
+                'fields': ['associationMeta', 'invocation'] 
             },
             {
-                'fields': ['associationPublished', 'invocation'],
-                'unique': True 
+                'fields': ['associationPublished', 'invocation']
             }
         ]
     }
