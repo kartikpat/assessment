@@ -34,11 +34,11 @@ def create_app(config_name):
     from .questionnaire.routes.questionnaire import questionnaire as questionnaire_route
     app.register_blueprint(questionnaire_route, url_prefix=configInstance.FLASK_API_VERSION)
 
-    from .questionnaire.routes.tagAssociation import tagAssociationWithQuestionaire as tagAssociationWithQuestionaire_route
-    app.register_blueprint(tagAssociationWithQuestionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
+    from .questionnaire.routes.tagAssociation import tagAssociationWithQuestionnaire as tagAssociationWithQuestionnaire_route
+    app.register_blueprint(tagAssociationWithQuestionnaire_route, url_prefix=configInstance.FLASK_API_VERSION)
 
-    from .questionnaire.routes.questionAssociation import questionAssociationWithQuestionaire as questionAssociationWithQuestionaire_route
-    app.register_blueprint(questionAssociationWithQuestionaire_route, url_prefix=configInstance.FLASK_API_VERSION)
+    from .questionnaire.routes.questionAssociation import questionAssociationWithQuestionnaire as questionAssociationWithQuestionnaire_route
+    app.register_blueprint(questionAssociationWithQuestionnaire_route, url_prefix=configInstance.FLASK_API_VERSION)
 
     #questions blueprints registration
     from .questions.routes.questions import questions as questions_route

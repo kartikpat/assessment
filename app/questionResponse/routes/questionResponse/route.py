@@ -145,7 +145,7 @@ def create_questionResponse():
 #         message = ''
 #         abort(400,{'message': message}) 
 
-#     except (Questionaire.DoesNotExist, InvalidObjectId, EmbeddedDocumentNotFound) as e:
+#     except (Questionnaire.DoesNotExist, InvalidObjectId, EmbeddedDocumentNotFound) as e:
 #         logger.exception(e)
 #         message = 'questionResponse id doesn\'t exist'
 #         if hasattr(e, 'message'):

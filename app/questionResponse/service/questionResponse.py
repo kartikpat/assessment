@@ -1,5 +1,5 @@
 from app.questionResponse.model.questionResponse import QuestionResponse, QuestionDetail, QuestionResponseSection
-from app.questionnaire.model.questionnaire import Questionaire
+from app.questionnaire.model.questionnaire import Questionnaire
 from bson import ObjectId
 import bson
 from ...exception import InvalidObjectId, EntityNotExists

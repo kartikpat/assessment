@@ -48,6 +48,10 @@ class QuestionResponse(Document):
             {
                 'fields': ['associationPublished', 'invocation', 'seeker'],
                 'unique': True 
+            },
+            {
+                'fields': ['associationPublished', 'invocation'],
+                'unique': True 
             }
         ]
     }

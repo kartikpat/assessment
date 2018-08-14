@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-tagAssociationWithQuestionaire = Blueprint('tagAssociationWithQuestionaire', __name__)
+tagAssociationWithQuestionnaire = Blueprint('tagAssociationWithQuestionnaire', __name__)
 
 from . import route

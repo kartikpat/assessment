@@ -122,7 +122,7 @@ def updateQuestion(question_id):
         message = ''
         abort(400,{'message': message}) 
 
-    except Questionaire.DoesNotExist as e:
+    except Questionnaire.DoesNotExist as e:
         logger.exception(e)
         message = 'question id doesn\'t exist'
         abort(404,{'message': message})
@@ -151,7 +151,7 @@ def fetch_question(question_id):
                 'data': [data]
             })
 
-    except Questionaire.DoesNotExist as e:
+    except Questionnaire.DoesNotExist as e:
         logger.exception(e)
         message = 'question id doesn\'t exist'
         abort(404,{'message': message})

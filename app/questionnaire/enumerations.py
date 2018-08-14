@@ -6,7 +6,7 @@ class AuthorType(Enum):
 	RECRUITER = 2
 
 @unique
-class QuestionaireStatus(Enum):
+class QuestionnaireStatus(Enum):
 	ACTIVE = 1
 	SAVED = 2
 	INACTIVE = 3

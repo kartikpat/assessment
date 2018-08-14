@@ -1,7 +1,7 @@
 from flask import  Flask,abort,jsonify, request
 from . import questionnaire
 from ...service.questionnaire import insert_questionnaire, update_questionnaire, get_questionnaire, get_questionnaire_by_id, questionnaire_exist
-from ...model.questionnaire import Questionaire
+from ...model.questionnaire import Questionnaire
 from .validate import validate 
 from ....exception import BadContentType,InvalidObjectId, FormValidationError, MissingGetParameters
 import logging
@@ -10,7 +10,7 @@ from mongoengine import *
 logger = logging.getLogger(__name__)
 
 @questionnaire.route('/questionnaire', methods=['GET'])
-def fetchQuestionaire():                 
+def fetchQuestionnaire():                 
     try:
  
         parameters = {}
@@ -99,7 +99,7 @@ def create_questionnaire():
 
 
 @questionnaire.route('/questionnaire/<questionnaire_id>', methods=['POST'])
-def updateQuestionaire(questionnaire_id):
+def updateQuestionnaire(questionnaire_id):
     try:
         
         data = get_data_in_dict()
@@ -123,7 +123,7 @@ def updateQuestionaire(questionnaire_id):
         message = ''
         abort(400,{'message': message}) 
 
-    except Questionaire.DoesNotExist as e:
+    except Questionnaire.DoesNotExist as e:
         logger.exception(e)
         message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})
@@ -151,7 +151,7 @@ def fetch_questionnaire(questionnaire_id):
                 'data': data
             })
 
-    except Questionaire.DoesNotExist as e:
+    except Questionnaire.DoesNotExist as e:
         logger.exception(e)
         message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})

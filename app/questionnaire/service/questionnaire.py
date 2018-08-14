@@ -1,4 +1,4 @@
-from ..model.questionnaire import Questionaire, QuestionaireProperty, QuestionaireSection
+from ..model.questionnaire import Questionnaire, QuestionnaireProperty, QuestionnaireSection
 from bson import ObjectId
 import bson
 from ...exception import InvalidObjectId, EmbeddedDocumentNotFound
@@ -9,9 +9,9 @@ import app.questionResponse.service as questionResponse_service_module
 
 def questionnaire_exist(data):
     if("associationMeta" in data):
-        questionnaire = Questionaire.objects(Q(associationMeta=int(data["associationMeta"])) & Q(invocation=int(data["invocation"]))).only('id').first()
+        questionnaire = Questionnaire.objects(Q(associationMeta=int(data["associationMeta"])) & Q(invocation=int(data["invocation"]))).only('id').first()
     if("associationPublished" in data):
-        questionnaire = Questionaire.objects(Q(associationPublished=int(data["associationPublished"])) & Q(invocation=int(data["invocation"]))).only('id').first()    
+        questionnaire = Questionnaire.objects(Q(associationPublished=int(data["associationPublished"])) & Q(invocation=int(data["invocation"]))).only('id').first()    
     if questionnaire:
        return questionnaire.id
 
@@ -19,11 +19,11 @@ def questionnaire_exist(data):
 
 def insert_questionnaire(data):
 
-    questionnaire_sections = createQuestionaireSections(data)
+    questionnaire_sections = createQuestionnaireSections(data)
 
-    questionnaire_property = createQuestionaireProperty(data)
+    questionnaire_property = createQuestionnaireProperty(data)
 
-    questionnaire = Questionaire()
+    questionnaire = Questionnaire()
     questionnaire.set_data(data, questionnaire_property, questionnaire_sections)
 
     questionnaire.save()
@@ -36,13 +36,13 @@ def update_questionnaire(data, questionnaire_id):
     if not is_valid_object_id(questionnaire_id):
         raise InvalidObjectId('invalid questionnaire id') 
 
-    questionnaire = Questionaire.objects(id=questionnaire_id).no_dereference().first()
+    questionnaire = Questionnaire.objects(id=questionnaire_id).no_dereference().first()
     if not questionnaire:
-        raise Questionaire.DoesNotExist
+        raise Questionnaire.DoesNotExist
 
-    questionnaire_property = createQuestionaireProperty(data)
+    questionnaire_property = createQuestionnaireProperty(data)
  
-    questionnaire_sections = createQuestionaireSections(data)
+    questionnaire_sections = createQuestionnaireSections(data)
     
     questionnaire.update_data(data, questionnaire_property, questionnaire_sections)
     questionnaire.save()
@@ -53,20 +53,20 @@ def get_questionnaire(parameters):
     questionnaire_list = []
 
     if parameters["associationMeta"] and parameters["invocation"]:
-        questionnaire_objects = Questionaire.objects(Q(associationMeta=int(parameters["associationMeta"])) & Q(invocation=int(parameters["invocation"]))).no_dereference() 
+        questionnaire_objects = Questionnaire.objects(Q(associationMeta=int(parameters["associationMeta"])) & Q(invocation=int(parameters["invocation"]))).no_dereference() 
     elif parameters["associationPublished"] and parameters["invocation"]:
-        questionnaire_objects = Questionaire.objects(Q(associationPublished=int(parameters["associationPublished"])) & Q(invocation=int(parameters["invocation"]))).no_dereference() 
+        questionnaire_objects = Questionnaire.objects(Q(associationPublished=int(parameters["associationPublished"])) & Q(invocation=int(parameters["invocation"]))).no_dereference() 
     elif parameters["associationMeta"]:
-        questionnaire_objects = Questionaire.objects(Q(associationMeta=int(parameters["associationMeta"])))
+        questionnaire_objects = Questionnaire.objects(Q(associationMeta=int(parameters["associationMeta"])))
     elif parameters["associationPublished"]:
-        questionnaire_objects = Questionaire.objects(Q(associationPublished=int(parameters["associationPublished"])))
+        questionnaire_objects = Questionnaire.objects(Q(associationPublished=int(parameters["associationPublished"])))
     else:
-        questionnaire_objects = Questionaire.objects
+        questionnaire_objects = Questionnaire.objects
     
     for questionnaire in questionnaire_objects:
         data = {}
     
-        data = getQuestionaireData(questionnaire, data, parameters)
+        data = getQuestionnaireData(questionnaire, data, parameters)
 
         questionnaire_list.append(data)
 
@@ -77,20 +77,20 @@ def get_questionnaire_by_id(questionnaire_id):
     if not is_valid_object_id(questionnaire_id):
         raise InvalidObjectId('invalid questionnaire id')    
 
-    questionnaire = Questionaire.objects(id=questionnaire_id).no_dereference().first()
+    questionnaire = Questionnaire.objects(id=questionnaire_id).no_dereference().first()
     if not questionnaire:
-        raise Questionaire.DoesNotExist
+        raise Questionnaire.DoesNotExist
 
     data = {}
 
-    data = getQuestionaireData(questionnaire, data, None)
+    data = getQuestionnaireData(questionnaire, data, None)
 
     questionnaire_list = []    
     questionnaire_list.append(data)
 
     return questionnaire_list
 
-def getQuestionaireData(questionnaire, data, parameters):
+def getQuestionnaireData(questionnaire, data, parameters):
     if "property" in questionnaire:
         data = questionnaire.property.get_data(data)
     
@@ -128,21 +128,21 @@ def getSectionData(questionnaire, data, parameters):
 
         return data
 
-def createQuestionaireSections(data):
+def createQuestionnaireSections(data):
     questionnaire_sections = []
     
     if "sections" in data and len(data["sections"]): 
 
         for index, section in enumerate(data["sections"]):
-            questionnaire_section = QuestionaireSection()
+            questionnaire_section = QuestionnaireSection()
             section_id = index;
             questionnaire_section.set_data(section, section_id)
             questionnaire_sections.append(questionnaire_section)
 
     return questionnaire_sections    
 
-def createQuestionaireProperty(data):
-    questionnaire_property = QuestionaireProperty()
+def createQuestionnaireProperty(data):
+    questionnaire_property = QuestionnaireProperty()
     questionnaire_property.set_data(data)
 
     return questionnaire_property

@@ -7,7 +7,7 @@ from ..constants import *
 from ...utils import getDateInIsoFormat
 
 class Summary(Document):
-    _questionnaire = LazyReferenceField('Questionaire',db_ref=False,db_field='questionnaireId',required=True, reverse_delete_rule=CASCADE)
+    _questionnaire = LazyReferenceField('Questionnaire',db_ref=False,db_field='questionnaireId',required=True, reverse_delete_rule=CASCADE)
     _seekerId = LongField(db_field='seekerId', min_value=1, required = True)
     _assessedOn = DateTimeField(db_field='assessedOn', required=True)
     _timeTaken = IntField(db_field='timeTaken', min_value=0,default=0, required = True)

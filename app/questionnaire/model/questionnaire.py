@@ -1,12 +1,12 @@
 from mongoengine import *
 from extras_mongoengine.fields import IntEnumField
 import datetime
-from ..enumerations import AuthorType, QuestionaireStatus
+from ..enumerations import AuthorType, QuestionnaireStatus
 from ...enumerations import Invocation 
 from ..constants import questionnaireViewType, questionnaireSectionType
 from ...utils import getBooleanValue, getDateInIsoFormat, encode_objectId , decode_objectId
 
-class QuestionaireProperty(EmbeddedDocument):
+class QuestionnaireProperty(EmbeddedDocument):
     viewType = StringField(db_field='viewType', choices=questionnaireViewType)
     showAnswers = BooleanField(db_field='showAnswers')
     durationInMin = IntField(db_field='durationInMin', min_value = 0)
@@ -43,7 +43,7 @@ class QuestionaireProperty(EmbeddedDocument):
             data["blockWindow"] = self.blockWindow 
         return data    
 
-class QuestionaireSection(EmbeddedDocument):
+class QuestionnaireSection(EmbeddedDocument):
     id = IntField(db_field='id', min_value=0, required=True)
     heading = StringField(db_field='heading')
     type = StringField(db_field='type',required= True, choices=questionnaireSectionType)
@@ -90,7 +90,7 @@ class QuestionaireSection(EmbeddedDocument):
 
         return data, questionIds               
 
-class Questionaire(Document):
+class Questionnaire(Document):
     name = DynamicField(db_field='name')
     author = DynamicField(db_field='author',required=True)
     authorType = IntEnumField(AuthorType, db_field='authorType', required = True)
@@ -98,13 +98,13 @@ class Questionaire(Document):
     associationPublished = DynamicField(db_field='associationPublished')
     createdAt = DateTimeField(db_field='createdAt',default=datetime.datetime.utcnow, required=True)
     updatedAt = DateTimeField(db_field='updatedAt')
-    status = IntEnumField(QuestionaireStatus, default=QuestionaireStatus.SAVED, db_field='status',required=True)
+    status = IntEnumField(QuestionnaireStatus, default=QuestionnaireStatus.SAVED, db_field='status',required=True)
     tags = DictField(db_field='tags', default=None)
     invocation = IntEnumField(Invocation, db_field='invocation', required=True)
     description = StringField(db_field='description')
     instruction = StringField(db_field='instruction')
-    property = EmbeddedDocumentField(QuestionaireProperty, db_field='property', default=None)
-    sections = EmbeddedDocumentListField(QuestionaireSection, db_field='sections')
+    property = EmbeddedDocumentField(QuestionnaireProperty, db_field='property', default=None)
+    sections = EmbeddedDocumentListField(QuestionnaireSection, db_field='sections')
 
     meta = {
         'indexes': [

@@ -2,7 +2,7 @@ from flask import  Flask, abort, jsonify
 from . import getSeekers
 from ....questionResponse.service.getSeekers import get_seekers
 from ....exception import BadContentType,InvalidObjectId, FormValidationError
-from ...model.questionnaire import Questionaire
+from ...model.questionnaire import Questionnaire
 import logging
 from ....utils import get_data_in_dict, encode_objectId
 from .validate import validate
@@ -35,7 +35,7 @@ def fetch_seekers_with_given_reponses():
         message = ''
         abort(400,{'message': message}) 
 
-    except Questionaire.DoesNotExist as e:
+    except Questionnaire.DoesNotExist as e:
         logger.exception(e)
         message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})

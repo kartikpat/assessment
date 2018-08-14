@@ -5,7 +5,7 @@ import json
 from app import create_app
 import datetime
 
-class QuestionaireTestCase(unittest.TestCase):
+class QuestionnaireTestCase(unittest.TestCase):
     """This class represents the questionnaire test case"""
 
     def setUp(self):

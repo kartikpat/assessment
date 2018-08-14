@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-questionAssociationWithQuestionaire = Blueprint('questionAssociationWithQuestionaire', __name__)
+questionAssociationWithQuestionnaire = Blueprint('questionAssociationWithQuestionnaire', __name__)
 
 from . import route

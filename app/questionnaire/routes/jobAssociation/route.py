@@ -1,7 +1,7 @@
 from flask import  Flask, abort, jsonify
 from . import jobAssociation
-from ...service.jobAssociation import associateJobWithquestionnaire, getAssociatedJobWithQuestionaire
-from ...model.questionnaire import Questionaire
+from ...service.jobAssociation import associateJobWithquestionnaire, getAssociatedJobWithQuestionnaire
+from ...model.questionnaire import Questionnaire
 from .validate import validate
 from ....exception import BadContentType,InvalidObjectId, FormValidationError
 import logging
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 @jobAssociation.route('/questionnaire/<questionnaire_id>/job', methods=['GET'])
 def fetch_job_associated_with_questionnaire(questionnaire_id):                
     try:
-        data = getAssociatedJobWithQuestionaire(questionnaire_id)
+        data = getAssociatedJobWithQuestionnaire(questionnaire_id)
 
         return jsonify({
                 'status': 'success',
@@ -56,7 +56,7 @@ def associate_job_with_questionnaire(questionnaire_id):
             message = e.message
         abort(400,{'message': message}) 
 
-    except Questionaire.DoesNotExist as e:
+    except Questionnaire.DoesNotExist as e:
         logger.exception(e)
         message = 'questionnaire id doesn\'t exist'
         abort(404,{'message': message})

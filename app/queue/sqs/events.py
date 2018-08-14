@@ -1,7 +1,7 @@
 from services import sendMessage, receiveMessage, deleteMessage
 import json
-from app.questionaire.model.questionaire import Questionaire
-from app.questionaire.service.jobAssociation import associateJobWithQuestionaire,updateMetaAndPublishAssociation, associatePublishWithMeta
+from app.questionaire.model.questionaire import Questionnaire
+from app.questionaire.service.jobAssociation import associateJobWithQuestionnaire,updateMetaAndPublishAssociation, associatePublishWithMeta
 from app.exception import InvalidObjectId
 from mongoengine import connect
 
@@ -19,7 +19,7 @@ try:
 		data = {}
 		data["associationMeta"] = responseBody["metaId"]
 		for index, questionaireId in enumerate(responseBody["questionaire"]):
-			associateJobWithQuestionaire(data, questionaireId)
+			associateJobWithQuestionnaire(data, questionaireId)
 
 	elif(responseBody["event"] == "publish job"):
 		associatePublishWithMeta(responseBody["publishId"], responseBody["metaId"])
@@ -28,7 +28,7 @@ try:
 	
 	deleteMessage(receipt_handle)
 
-except Questionaire.DoesNotExist as e:
+except Questionnaire.DoesNotExist as e:
     message = 'questionaire id doesn\'t exist'
     print(message)
         
