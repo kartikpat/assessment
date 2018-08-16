@@ -1,4 +1,4 @@
-from model import Questionnaire
+from model import Questionnaire, Question
 from bson import ObjectId
 import bson
 from utils import decode_objectId
@@ -17,6 +17,7 @@ def associateJobWithQuestionnaire(data, questionnaire_id):
 
 def associatePublishWithMeta(publishId, metaId):
     questionaire = Questionnaire.objects(associationMeta=metaId).update(associationPublished=int(publishId))
+    setQuestionsAvailability(metaId)
     return    
   
 def updateMetaAndPublishAssociation(data):
@@ -24,4 +25,13 @@ def updateMetaAndPublishAssociation(data):
         questionaire = Questionnaire.objects(associationMeta=data["metaIdOld"]).update(associationMeta=int(data["metaId"]))
     if("publishIdOld" in data):
         questionaire = Questionnaire.objects(associationPublished=data["publishIdOld"]).update(associationPublished=int(data["publishId"]))
-    return 
+    return
+
+
+def setQuestionsAvailability(metaId):    
+    questionnaire_objects = Questionnaire.objects(associationMeta=metaId).only('sections');
+
+    for questionnaire in questionnaire_objects:
+        for section in questionnaire.sections:
+            for aQuestionId in section.questionIds:
+                Question.objects(id=aQuestionId).update_one(availability=True)
