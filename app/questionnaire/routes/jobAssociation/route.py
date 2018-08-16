@@ -1,9 +1,9 @@
 from flask import  Flask, abort, jsonify
 from . import jobAssociation
-from ...service.jobAssociation import associateJobWithquestionnaire, getAssociatedJobWithQuestionnaire
+from ...service.jobAssociation import associateJobWithQuestionnaire, getAssociatedJobWithQuestionnaire
 from ...model.questionnaire import Questionnaire
 from .validate import validate
-from ....exception import BadContentType,InvalidObjectId, FormValidationError
+from ....exception import BadContentType,InvalidObjectId, FormValidationError, NotAuthorized
 import logging
 from app.utils import get_data_in_dict
 from mongoengine import * 
@@ -12,12 +12,26 @@ logger = logging.getLogger(__name__)
 @jobAssociation.route('/questionnaire/<questionnaire_id>/job', methods=['GET'])
 def fetch_job_associated_with_questionnaire(questionnaire_id):                
     try:
+
+        # is_auth, payload = isAuthorized()
+
+        # if not is_auth:
+        #     raise NotAuthorized('')
+
         data = getAssociatedJobWithQuestionnaire(questionnaire_id)
 
         return jsonify({
                 'status': 'success',
                 'data': data
             })
+
+    except NotAuthorized as e:
+        logger.exception(e)
+        message = ''
+        if hasattr(e, 'message'):
+            e.to_dict()
+            message = e.message
+        abort(403,{'message': message})    
 
     except Exception as e:
             logger.exception(e)
@@ -27,6 +41,7 @@ def fetch_job_associated_with_questionnaire(questionnaire_id):
 @jobAssociation.route('/questionnaire/<questionnaire_id>/job', methods=['POST'])
 def associate_job_with_questionnaire(questionnaire_id):  
     try:
+
         data = get_data_in_dict()  
 
         validate(data)

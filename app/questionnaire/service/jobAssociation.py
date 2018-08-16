@@ -2,9 +2,9 @@ from ..model.questionnaire import Questionnaire
 from bson import ObjectId
 import bson
 from ...exception import InvalidObjectId
-from ...utils import is_valid_object_id
+from ...utils import is_valid_object_id, decode_objectId
 
-def associateJobWithquestionnaire(data, questionnaire_id):
+def associateJobWithQuestionnaire(data, questionnaire_id):
     questionnaire_id = decode_objectId(questionnaire_id)
     if not is_valid_object_id(questionnaire_id):
         raise InvalidObjectId('invalid questionnaire id') 
@@ -32,3 +32,14 @@ def getAssociatedJobWithQuestionnaire(questionnaire_id):
         data["associationPublished"] = questionnaire.associationPublished;
 
     return data
+
+def associatePublishWithMeta(publishId, metaId):
+    questionaire = Questionnaire.objects(associationMeta=metaId).update(associationPublished=int(publishId))
+    return    
+  
+def updateMetaAndPublishAssociation(data):
+    if("metaIdOld" in data):
+        questionaire = Questionnaire.objects(associationMeta=data["metaIdOld"]).update(associationMeta=int(data["metaId"]))
+    if("publishIdOld" in data):
+        questionaire = Questionnaire.objects(associationPublished=data["publishIdOld"]).update(associationPublished=int(data["publishId"]))
+    return    

@@ -61,3 +61,10 @@ class EntityNotExists(Error):
             self.status_code = status_code
         self.payload = payload        
 
+class NotAuthorized(Error):
+    """Exception Raised for Embedded Document in list of documents not found"""
+    def __init__(self, message, status_code=None, payload=None):
+        self.message = message
+        if status_code is not None:
+            self.status_code = status_code
+        self.payload = payload

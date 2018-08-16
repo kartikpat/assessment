@@ -3,16 +3,21 @@ from . import questionnaire
 from ...service.questionnaire import insert_questionnaire, update_questionnaire, get_questionnaire, get_questionnaire_by_id, questionnaire_exist
 from ...model.questionnaire import Questionnaire
 from .validate import validate 
-from ....exception import BadContentType,InvalidObjectId, FormValidationError, MissingGetParameters
+from ....exception import BadContentType,InvalidObjectId, FormValidationError, MissingGetParameters, NotAuthorized
 import logging
-from ....utils import get_data_in_dict, encode_objectId
+from ....utils import get_data_in_dict, encode_objectId, isAuthorized
 from mongoengine import *
 logger = logging.getLogger(__name__)
 
 @questionnaire.route('/questionnaire', methods=['GET'])
 def fetchQuestionnaire():                 
     try:
- 
+
+        # is_auth, payload = isAuthorized()
+
+        # if not is_auth:
+        #     raise NotAuthorized('') 
+        
         parameters = {}
 
         parameters["associationMeta"] = request.args.get("associationMeta")
@@ -38,7 +43,15 @@ def fetchQuestionnaire():
         if hasattr(e, 'message'):
             e.to_dict()
             message = e.message
-        abort(400,{'message': message})           
+        abort(400,{'message': message}) 
+
+    except NotAuthorized as e:
+        logger.exception(e)
+        message = ''
+        if hasattr(e, 'message'):
+            e.to_dict()
+            message = e.message
+        abort(403,{'message': message})              
 
     except Exception as e:
             logger.exception(e)

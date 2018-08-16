@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 @questionResponse.route('/questionResponse', methods=['GET'])
 def fetch_all_questionResponse():                
     try:
-        parameters = {}
+        parameters = {} 
 
         parameters["associationPublished"] = request.args.get("associationPublished")
         parameters["invocation"] = request.args.get("invocation")

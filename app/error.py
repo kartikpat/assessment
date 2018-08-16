@@ -21,8 +21,10 @@ def forbidden(error):
     if('message' in error.description):
         message = error.description['message']
     if(message == ''): 
-        message = 'forbidden'
+        message = 'You are not authorized to use this service'
 
+    print("here")
+    print(message)
     return make_response(jsonify({
     'error': message,
     'status': 'fail'

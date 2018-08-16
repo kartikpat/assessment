@@ -1,14 +1,16 @@
 import time
 from flask import request
 from werkzeug.datastructures import MultiDict
-from .exception import BadContentType, FormValidationError
+from .exception import BadContentType, FormValidationError, NotAuthorized
 from bson import ObjectId
 import bson
 import dateutil.parser as parser
 from wtforms import Form, Field
-from flask import current_app
+from flask import current_app, abort
 from werkzeug.routing import BaseConverter
 from itsdangerous import base64_encode, base64_decode
+from .auth.jwt import decode_auth_token
+
 
 def timestamp():
     """Return the current timestamp as an integer."""
@@ -112,8 +114,15 @@ def decode_objectId(value):
 def encode_objectId(value):
     return str(base64_encode(value.binary), 'utf-8')  
 
-        
+def isAuthorized():
+    authToken = request.headers.get('Authorization')
+    if not authToken:
+        raise NotAuthorized('You are not authorized for this service')
 
+    isAuth, payload = decode_auth_token(authToken[7:]) 
+
+    return isAuth, payload 
+      
 # def requiredIfFieldExist(field_name, field_value):
 #     def _requiredIfFieldExist(form, field):
 #         if(form[field_name].data == field_value):
