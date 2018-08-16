@@ -1,10 +1,9 @@
-from services import sendMessage, receiveMessage, deleteMessage
+from sqs_services import sendMessage, receiveMessage, deleteMessage
 import json
-from app.questionnaire.model.questionnaire import Questionnaire
-from app.questionnaire.service.jobAssociation import associateJobWithQuestionnaire,updateMetaAndPublishAssociation, associatePublishWithMeta
-from app.exception import InvalidObjectId
+from model import Questionnaire
+from services import associateJobWithQuestionnaire,updateMetaAndPublishAssociation, associatePublishWithMeta
 from mongoengine import connect
-
+ 
 connect('development')  
 
 try:
@@ -33,13 +32,6 @@ try:
 
 except Questionnaire.DoesNotExist as e:
     message = 'questionnaire id doesn\'t exist'
-    print(message)
-        
-except InvalidObjectId as e:
-    message = 'questionnaire id is not valid'
-    if hasattr(e, 'message'):
-        e.to_dict()
-        message = e.message
     print(message)
 
 except Exception as e:

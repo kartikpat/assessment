@@ -1,37 +1,27 @@
-import boto3
+from model import Questionnaire
+from bson import ObjectId
+import bson
+from utils import decode_objectId
 
-# Get the service resource
-sqs = boto3.client('sqs')
- 
-queueName = 'kartiktest'
+def associateJobWithQuestionnaire(data, questionnaire_id):
+    questionnaire_id = decode_objectId(questionnaire_id)
 
-response = sqs.get_queue_url(QueueName=queueName)
+    if("associationMeta" in data and data["associationMeta"]):
+        questionnaire = Questionnaire.objects(id=questionnaire_id).update_one(associationMeta=data["associationMeta"])
+    if("associationPublished" in data and data["associationPublished"]):
+        questionnaire = Questionnaire.objects(id=questionnaire_id).update_one(associationPublished=data["associationPublished"])    
+    if not questionnaire: 
+        raise Questionnaire.DoesNotExist
 
-queueURL = response['QueueUrl']
+    return
 
-def sendMessage(body, attributes):
-	response = sqs.send_message(
-					QueueUrl = queueURL,
-					MessageBody = body,
-					MessageAttributes=attributes
-				)
-
-	return response
-
-def receiveMessage():
-	response = sqs.receive_message(
-				    QueueUrl=queueURL,
-				    MaxNumberOfMessages=10,
-				    MessageAttributeNames=[
-				        'All'
-				    ],
-				    VisibilityTimeout=60
-				)
-
-	return response
-
-def deleteMessage(receiptHandle):
-	sqs.delete_message(
-		QueueUrl=queueURL,
-		ReceiptHandle=receiptHandle
-	)
+def associatePublishWithMeta(publishId, metaId):
+    questionaire = Questionnaire.objects(associationMeta=metaId).update(associationPublished=int(publishId))
+    return    
+  
+def updateMetaAndPublishAssociation(data):
+    if("metaIdOld" in data):
+        questionaire = Questionnaire.objects(associationMeta=data["metaIdOld"]).update(associationMeta=int(data["metaId"]))
+    if("publishIdOld" in data):
+        questionaire = Questionnaire.objects(associationPublished=data["publishIdOld"]).update(associationPublished=int(data["publishId"]))
+    return 

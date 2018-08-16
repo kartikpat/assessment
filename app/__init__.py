@@ -56,7 +56,7 @@ def create_app(config_name):
     app.register_blueprint(questionResponse_route, url_prefix=configInstance.FLASK_API_VERSION)
 
     from .task.worker import celery_worker as celery_worker_blueprint
-    app.register_blueprint(celery_worker_blueprint, url_prefix='/task')
+    app.register_blueprint(celery_worker_blueprint, url_prefix='/task') 
 
     # error handlers registration 
     app.register_error_handler(404, not_found)
