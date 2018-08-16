@@ -5,31 +5,31 @@ from app.questionnaire.service.jobAssociation import associateJobWithQuestionnai
 from app.exception import InvalidObjectId
 from mongoengine import connect
 
-connect('development')	
+connect('development')  
 
 try:
-	while True:
-    	response = receiveMessage()
-    	if 'Messages' in response:
-        	for message in response['Messages']:
-        		responseBody = json.loads(message['Body'])
-        		receipt_handle = message['ReceiptHandle']
+    while True:
+        response = receiveMessage()
+        if 'Messages' in response:
+            for message in response['Messages']:
+                responseBody = json.loads(message['Body'])
+                receipt_handle = message['ReceiptHandle']
 
-        		if(responseBody["event"] == "post"):
-					data = {}
-					data["associationMeta"] = responseBody["metaId"]
-					for index, questionnaireId in enumerate(responseBody["questionnaire"]):
-						associateJobWithQuestionnaire(data, questionnaireId)
+                if(responseBody["event"] == "post"):
+                    data = {}
+                    data["associationMeta"] = responseBody["metaId"]
+                    for index, questionnaireId in enumerate(responseBody["questionnaire"]):
+                        associateJobWithQuestionnaire(data, questionnaireId)
 
-				elif(responseBody["event"] == "publish"):
-					associatePublishWithMeta(responseBody["publishId"], responseBody["metaId"])
-				else:
-					updateMetaAndPublishAssociation(responseBody)
-			            	
-            	deleteMessage(receipt_handle)
-    	else:
-        	print('Queue is now empty')
-        	break	
+                elif(responseBody["event"] == "publish"):
+                    associatePublishWithMeta(responseBody["publishId"], responseBody["metaId"])
+                else:
+                    updateMetaAndPublishAssociation(responseBody)
+                            
+                deleteMessage(receipt_handle)
+        else:
+            print('Queue is now empty')
+            break   
 
 except Questionnaire.DoesNotExist as e:
     message = 'questionnaire id doesn\'t exist'
@@ -43,4 +43,4 @@ except InvalidObjectId as e:
     print(message)
 
 except Exception as e:
-	print(e)	
+    print(e)    
