@@ -5,3 +5,4 @@ workers = (multiprocessing.cpu_count() * 2) + 1
 reload = True
 accesslog = "-"
 worker_class = "gevent"
+loglevel = "debug"
