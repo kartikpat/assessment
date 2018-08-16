@@ -13,10 +13,10 @@ logger = logging.getLogger(__name__)
 def fetchQuestionnaire():                 
     try:
 
-        is_auth, payload = isAuthorized()
+        # is_auth, payload = isAuthorized()
 
-        if not is_auth:
-            raise NotAuthorized('') 
+        # if not is_auth:
+        #     raise NotAuthorized('') 
         
         parameters = {}
 
