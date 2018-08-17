@@ -84,7 +84,7 @@ def get_seekers(associationPublished, questions, invocation):
                                                         "as": "question",
                                                         "cond":{
                                                             "$and": [{"$eq":["$$question.id", decode_objectId(aQuestion["id"])]},
-                                                                     {"$in":  [ "$$question.answer", aQuestion["answer"]]}]
+                                                                     {"$in":  [ "$$question.answer", int(aQuestion["answer"])]}]
                                                         }
                                                     }
                                                 }
@@ -106,7 +106,7 @@ def get_seekers(associationPublished, questions, invocation):
                     matchingSeekers.append(aQuestionResponse["seeker"])     
 
         elif(type == 4 or type == 5): 
-            if((0 in aQuestion["answer"]) and (1 in aQuestion["answer"])):
+            if(((0 in aQuestion["answer"]) or ("0" in aQuestion["answer"])) and ((1 in aQuestion["answer"]) or ("1" in aQuestion["answer"]))):
                 questionResponse = QuestionResponse.objects(Q(associationPublished=int(associationPublished)) & Q(invocation=int(invocation))).only('seeker');
                 for aQuestionResponse in questionResponse:
                     matchingSeekers.append(aQuestionResponse.seeker) 
@@ -144,9 +144,9 @@ def get_seekers(associationPublished, questions, invocation):
         
                 questionResponse = QuestionResponse.objects.aggregate(*pipeline)
                 for aQuestionResponse in questionResponse:
-                    if aQuestionResponse["sections"] and (1 in aQuestion["answer"]):
+                    if aQuestionResponse["sections"] and ((1 in aQuestion["answer"]) or ("1" in aQuestion["answer"])):
                         matchingSeekers.append(aQuestionResponse["seeker"])
-                    elif not aQuestionResponse["sections"] and (0 in aQuestion["answer"]):      
+                    elif not aQuestionResponse["sections"] and ((0 in aQuestion["answer"]) or ("0" in aQuestion["answer"])):      
                         matchingSeekers.append(aQuestionResponse["seeker"])
 
         if index == 0:
