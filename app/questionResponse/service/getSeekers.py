@@ -68,6 +68,7 @@ def get_seekers(associationPublished, questions, invocation):
                 matchingSeekers = list(set(temp) | set(matchingSeekers))        
 
         elif(type == 2 or type == 3):   
+            aQuestion["answer"] = list(map(int, aQuestion["answer"]))
             pipeline = [
                         {"$match": {"associationPublished": int(associationPublished), "invocation": int(invocation) }},
                         {"$project":{
@@ -84,7 +85,7 @@ def get_seekers(associationPublished, questions, invocation):
                                                         "as": "question",
                                                         "cond":{
                                                             "$and": [{"$eq":["$$question.id", decode_objectId(aQuestion["id"])]},
-                                                                     {"$in":  [ "$$question.answer", int(aQuestion["answer"])]}]
+                                                                     {"$in":  [ "$$question.answer", aQuestion["answer"]]}]
                                                         }
                                                     }
                                                 }
