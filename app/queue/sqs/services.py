@@ -16,7 +16,9 @@ def associateJobWithQuestionnaire(data, questionnaire_id):
     return
 
 def associatePublishWithMeta(publishId, metaId):
-    questionaire = Questionnaire.objects(associationMeta=metaId).update(associationPublished=int(publishId))
+    questionaire = Questionnaire.objects(associationMeta=int(metaId)).update(associationPublished=int(publishId))
+    if not questionnaire:
+        return
     setQuestionsAvailability(metaId)
     return    
   
@@ -29,7 +31,7 @@ def updateMetaAndPublishAssociation(data):
 
 
 def setQuestionsAvailability(metaId):    
-    questionnaire_objects = Questionnaire.objects(associationMeta=metaId).only('sections');
+    questionnaire_objects = Questionnaire.objects(associationMeta=int(metaId)).only('sections');
 
     for questionnaire in questionnaire_objects:
         for section in questionnaire.sections:

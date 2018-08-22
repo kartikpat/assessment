@@ -11,7 +11,7 @@ class QuestionnaireProperty(EmbeddedDocument):
     showAnswers = BooleanField(db_field='showAnswers')
     durationInMin = IntField(db_field='durationInMin', min_value = 0)
     blockWindow = BooleanField(db_field='blockWindow')
-
+    
     def set_data(self, data):
         if "viewType" in data:
             self.viewType = data["viewType"]
