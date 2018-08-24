@@ -6,7 +6,7 @@ from ..enumerations import *
 from ...enumerations import Invocation
 from ..constants import *
 from ...utils import getDateInIsoFormat, encode_objectId, decode_objectId
-
+ 
 class QuestionDetail(EmbeddedDocument):
     id = ObjectIdField(db_field='id', required=True)
     answer = DynamicField(db_field='answer')

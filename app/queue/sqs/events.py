@@ -8,12 +8,13 @@ connect('development')
 
 try:
     while True:
-        response = receiveMessage()
+        response = receiveMessage();
+        print(response['Messages']);
         if 'Messages' in response:
             for message in response['Messages']:
                 responseBody = json.loads(message['Body'])
                 receipt_handle = message['ReceiptHandle']
-
+                print(responseBody)
                 if(responseBody["event"] == "post"):
                     data = {}
                     data["associationMeta"] = responseBody["metaId"]
