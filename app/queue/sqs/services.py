@@ -1,4 +1,4 @@
-from model import Questionnaire, Question
+from model import Questionnaire, Question, QuestionResponse
 from bson import ObjectId
 import bson
 from utils import decode_objectId
@@ -27,6 +27,7 @@ def updateMetaAndPublishAssociation(data):
         questionaire = Questionnaire.objects(associationMeta=int(data["metaIdOld"])).update(associationMeta=int(data["metaId"]))
     if("publishIdOld" in data):
         questionaire = Questionnaire.objects(associationPublished=int(data["publishIdOld"])).update(associationPublished=int(data["publishId"]))
+        updateQuestionResponseId(data["publishIdOld"], data["publishId"]);
     return
 
 def setQuestionsAvailability(metaId):    
@@ -36,3 +37,6 @@ def setQuestionsAvailability(metaId):
         for section in questionnaire.sections:
             for aQuestionId in section.questionIds:
                 Question.objects(id=aQuestionId).update_one(availability=True)
+
+def updateQuestionResponseId(publishIdOld, publishId):
+    questionResponse_objects = QuestionResponse.objects(associationPublished=int(publishIdOld)).update(associationPublished=int(publishId));              

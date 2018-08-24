@@ -11,7 +11,12 @@ class Questionnaire(Document):
     sections = EmbeddedDocumentListField(QuestionnaireSection, db_field='sections')
 
 class Question(Document): 
-    availability = BooleanField(db_field='availability', default=False)    
+    availability = BooleanField(db_field='availability', default=False)  
+
+
+class QuestionResponse(Document):
+    associationPublished = LongField(db_field='associationPublished', required=True)
+
      
 
         
