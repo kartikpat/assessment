@@ -63,5 +63,6 @@ def fetch_seekers_with_given_reponses():
 
     except Exception as e:
         logger.exception(e)
+        print(e)
         message = ''
         abort(503,{'message': message})
