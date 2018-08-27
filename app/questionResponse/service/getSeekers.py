@@ -101,7 +101,6 @@ def get_seekers(associationPublished, questions, invocation):
 
     
             questionResponse = QuestionResponse.objects.aggregate(*pipeline)
-            print(questionResponse)
             for aQuestionResponse in questionResponse:
                 if aQuestionResponse["sections"]:
                     matchingSeekers.append(aQuestionResponse["seeker"])     
