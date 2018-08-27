@@ -93,7 +93,6 @@ def validateListLength(list_data, list_name):
         raise FormValidationError(list_name + ' list can\'t be empty') 
 
 def minListLength(list_data, list_name, length):
-    print(list_data)
     if len(list_data) < length:
         raise FormValidationError('atleast two values required of' + list_name )                
 
@@ -126,7 +125,6 @@ def isAuthorized():
 # def requiredIfFieldExist(field_name, field_value):
 #     def _requiredIfFieldExist(form, field):
 #         if(form[field_name].data == field_value):
-#             print(form[field_name].data)
 #             value = field.data
 #             if not value:
 #                 raise ValidationError(field.name + " : " + "field is required" )
