@@ -83,7 +83,6 @@ def create_question():
 
     except Exception as e:
         logger.exception(e)
-        print(e)
         message = ''
         abort(503,{'message': message}) 
 
@@ -138,7 +137,6 @@ def updateQuestion(question_id):
 
     except Exception as e:
         logger.exception(e)
-        print(e)
         message = ''
         abort(503,{'message': message})            
 
