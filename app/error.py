@@ -4,6 +4,7 @@ logger = logging.getLogger(__name__)
 
 def not_found(error):
     logger.debug(error)
+    print(error)
     message = ''
     if('message' in error.description):
         message = error.description['message']
@@ -17,6 +18,7 @@ def not_found(error):
 
 def forbidden(error):
     logger.debug(error)
+    print(error)
     message = ''
     if('message' in error.description):
         message = error.description['message']
@@ -32,6 +34,7 @@ def forbidden(error):
 
 def bad_request(error):
     logger.debug(error)
+    print(error)
     message = ''
     if('message' in error.description):
         message = error.description['message']
@@ -45,6 +48,7 @@ def bad_request(error):
 
 def unprocessable_entity(error):
     logger.debug(error)
+    print(error)
     message = ''
     if('message' in error.description):
         message = error.description['message']
@@ -58,6 +62,7 @@ def unprocessable_entity(error):
 
 def conflict(error):  
     logger.debug(error)
+    print(error)
     message = ''
     if('message' in error.description):
         message = error.description['message']
@@ -71,6 +76,7 @@ def conflict(error):
 
 def service_error(error):
     logger.debug(error)
+    print(error)
     message = ''
     if('message' in error.description):
         message = error.description['message']
