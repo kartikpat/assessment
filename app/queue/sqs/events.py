@@ -3,13 +3,14 @@ import json
 from model import Questionnaire
 from services import associateJobWithQuestionnaire,updateMetaAndPublishAssociation, associatePublishWithMeta
 from mongoengine import connect
- 
+import time
+
 connect('development')  
 
 try:
+    startSec = int(round(time.time()))
     while True:
         response = receiveMessage();
-        print(response['Messages']);
         if 'Messages' in response:
             for message in response['Messages']:
                 responseBody = json.loads(message['Body'])
@@ -28,8 +29,16 @@ try:
                             
                 deleteMessage(receipt_handle)
         else:
-            print('Queue is now empty')
-            break   
+            print('Queue is now empty');
+            newSec = int(round(time.time()))
+            if((newSec - startSec) > 50):
+                print("breaking")
+                break
+            else:   
+                print("continue") 
+                continue
+      
+            
 
 except Questionnaire.DoesNotExist as e:
     message = 'questionnaire id doesn\'t exist'
