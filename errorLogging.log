@@ -1,0 +1,205 @@
+[2018-09-17 13:29:04 +0530] [6220] [DEBUG] Current configuration:
+  config: gunicornConf.py
+  bind: ['127.0.0.1:5000']
+  backlog: 2048
+  workers: 9
+  worker_class: gevent
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 30
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: True
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  preload_app: False
+  sendfile: None
+  reuse_port: False
+  chdir: /home/kartik/Documents/assessment
+  daemon: False
+  raw_env: []
+  pidfile: None
+  worker_tmp_dir: None
+  user: 1001
+  group: 1001
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: logging.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: errorLogging.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  statsd_prefix: 
+  proc_name: None
+  default_proc_name: run:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fc333ccfea0>
+  on_reload: <function OnReload.on_reload at 0x7fc3337da048>
+  when_ready: <function WhenReady.when_ready at 0x7fc3337da158>
+  pre_fork: <function Prefork.pre_fork at 0x7fc3337da268>
+  post_fork: <function Postfork.post_fork at 0x7fc3337da378>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fc3337da488>
+  worker_int: <function WorkerInt.worker_int at 0x7fc3337da598>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fc3337da6a8>
+  pre_exec: <function PreExec.pre_exec at 0x7fc3337da7b8>
+  pre_request: <function PreRequest.pre_request at 0x7fc3337da8c8>
+  post_request: <function PostRequest.post_request at 0x7fc3337da950>
+  child_exit: <function ChildExit.child_exit at 0x7fc3337daa60>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fc3337dab70>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fc3337dac80>
+  on_exit: <function OnExit.on_exit at 0x7fc3337dad90>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: TLSv1
+  raw_paste_global_conf: []
+[2018-09-17 13:29:04 +0530] [6220] [INFO] Starting gunicorn 19.9.0
+[2018-09-17 13:29:04 +0530] [6220] [DEBUG] Arbiter booted
+[2018-09-17 13:29:04 +0530] [6220] [INFO] Listening at: http://127.0.0.1:5000 (6220)
+[2018-09-17 13:29:04 +0530] [6220] [INFO] Using worker: gevent
+[2018-09-17 13:29:04 +0530] [6223] [INFO] Booting worker with pid: 6223
+[2018-09-17 13:29:04 +0530] [6224] [INFO] Booting worker with pid: 6224
+[2018-09-17 13:29:04 +0530] [6225] [INFO] Booting worker with pid: 6225
+[2018-09-17 13:29:04 +0530] [6226] [INFO] Booting worker with pid: 6226
+[2018-09-17 13:29:05 +0530] [6228] [INFO] Booting worker with pid: 6228
+[2018-09-17 13:29:05 +0530] [6230] [INFO] Booting worker with pid: 6230
+[2018-09-17 13:29:05 +0530] [6231] [INFO] Booting worker with pid: 6231
+[2018-09-17 13:29:05 +0530] [6232] [INFO] Booting worker with pid: 6232
+[2018-09-17 13:29:05 +0530] [6233] [INFO] Booting worker with pid: 6233
+[2018-09-17 13:29:05 +0530] [6220] [DEBUG] 9 workers
+[2018-09-17 13:30:08 +0530] [6220] [INFO] Handling signal: int
+[2018-09-17 13:30:08 +0530] [6231] [INFO] Worker exiting (pid: 6231)
+[2018-09-17 13:30:08 +0530] [6228] [INFO] Worker exiting (pid: 6228)
+[2018-09-17 13:30:08 +0530] [6224] [INFO] Worker exiting (pid: 6224)
+[2018-09-17 13:30:08 +0530] [6232] [INFO] Worker exiting (pid: 6232)
+[2018-09-17 13:30:08 +0530] [6225] [INFO] Worker exiting (pid: 6225)
+[2018-09-17 13:30:08 +0530] [6233] [INFO] Worker exiting (pid: 6233)
+[2018-09-17 13:30:08 +0530] [6226] [INFO] Worker exiting (pid: 6226)
+[2018-09-17 13:30:08 +0530] [6230] [INFO] Worker exiting (pid: 6230)
+[2018-09-17 13:30:08 +0530] [6223] [INFO] Worker exiting (pid: 6223)
+[2018-09-17 13:30:09 +0530] [6220] [INFO] Shutting down: Master
+[2018-09-17 13:31:00 +0530] [6467] [DEBUG] Current configuration:
+  config: gunicornConf.py
+  bind: ['127.0.0.1:5000']
+  backlog: 2048
+  workers: 9
+  worker_class: gevent
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 30
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: True
+  reload_engine: auto
+  reload_extra_files: []
+  spew: False
+  check_config: False
+  preload_app: False
+  sendfile: None
+  reuse_port: False
+  chdir: /home/kartik/Documents/assessment
+  daemon: False
+  raw_env: []
+  pidfile: None
+  worker_tmp_dir: None
+  user: 1001
+  group: 1001
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: logging.log
+  disable_redirect_access_to_syslog: False
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: errorLogging.log
+  loglevel: debug
+  capture_output: False
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  logconfig_dict: {}
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: False
+  statsd_host: None
+  statsd_prefix: 
+  proc_name: None
+  default_proc_name: run:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fdcccafaea0>
+  on_reload: <function OnReload.on_reload at 0x7fdccc606048>
+  when_ready: <function WhenReady.when_ready at 0x7fdccc606158>
+  pre_fork: <function Prefork.pre_fork at 0x7fdccc606268>
+  post_fork: <function Postfork.post_fork at 0x7fdccc606378>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fdccc606488>
+  worker_int: <function WorkerInt.worker_int at 0x7fdccc606598>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fdccc6066a8>
+  pre_exec: <function PreExec.pre_exec at 0x7fdccc6067b8>
+  pre_request: <function PreRequest.pre_request at 0x7fdccc6068c8>
+  post_request: <function PostRequest.post_request at 0x7fdccc606950>
+  child_exit: <function ChildExit.child_exit at 0x7fdccc606a60>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fdccc606b70>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fdccc606c80>
+  on_exit: <function OnExit.on_exit at 0x7fdccc606d90>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: TLSv1
+  raw_paste_global_conf: []
+[2018-09-17 13:31:00 +0530] [6467] [INFO] Starting gunicorn 19.9.0
+[2018-09-17 13:31:00 +0530] [6467] [DEBUG] Arbiter booted
+[2018-09-17 13:31:00 +0530] [6467] [INFO] Listening at: http://127.0.0.1:5000 (6467)
+[2018-09-17 13:31:00 +0530] [6467] [INFO] Using worker: gevent
+[2018-09-17 13:31:00 +0530] [6470] [INFO] Booting worker with pid: 6470
+[2018-09-17 13:31:00 +0530] [6471] [INFO] Booting worker with pid: 6471
+[2018-09-17 13:31:00 +0530] [6473] [INFO] Booting worker with pid: 6473
+[2018-09-17 13:31:00 +0530] [6474] [INFO] Booting worker with pid: 6474
+[2018-09-17 13:31:00 +0530] [6475] [INFO] Booting worker with pid: 6475
+[2018-09-17 13:31:00 +0530] [6477] [INFO] Booting worker with pid: 6477
+[2018-09-17 13:31:00 +0530] [6479] [INFO] Booting worker with pid: 6479
+[2018-09-17 13:31:00 +0530] [6481] [INFO] Booting worker with pid: 6481
+[2018-09-17 13:31:00 +0530] [6482] [INFO] Booting worker with pid: 6482
+[2018-09-17 13:31:00 +0530] [6467] [DEBUG] 9 workers
+[2018-09-17 17:03:44 +0530] [6477] [DEBUG] POST /v1/questionnaire
+[2018-09-17 17:04:13 +0530] [6482] [DEBUG] POST /v1/questionnaire

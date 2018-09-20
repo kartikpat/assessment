@@ -1,0 +1,1 @@
+/home/kartik/Documents/assessment/venv/bin/python3.6 /home/kartik/Documents/assessment/app/queue/sqs/events.py >> /tmp/cronlog.txt 2>&1
